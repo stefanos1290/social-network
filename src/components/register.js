@@ -67,6 +67,17 @@ class Registration extends Component {
                         width: "200px"
                     }}
                 >
+                    <img
+                        style={{
+                            borderRadius: "230px",
+                            display: "block",
+                            width: "400px",
+                            left: "-50%",
+                            right: "-50%",
+                            position: "relative"
+                        }}
+                        src="logo.jpg"
+                    ></img>
                     {this.state.error && (
                         <div>Something went wrong. Please try again!</div>
                     )}
@@ -106,10 +117,15 @@ class Registration extends Component {
                         required
                     />
                 </div>
-                <button onClick={() => this.handleRegister()}>Register</button>
+                <button
+                    style={{ margin: "10px" }}
+                    onClick={() => this.handleRegister()}
+                >
+                    Register
+                </button>
+
                 <div>
-                    {/* <h1>I am login!</h1> */}
-                    <Link to="/login">click here to Login</Link>
+                    Already a member? <Link to="/login">Log In</Link>
                 </div>
             </div>
         );

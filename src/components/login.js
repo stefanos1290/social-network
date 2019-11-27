@@ -62,6 +62,17 @@ export default class Login extends React.Component {
                         width: "200px"
                     }}
                 >
+                    <img
+                        style={{
+                            borderRadius: "230px",
+                            display: "block",
+                            width: "400px",
+                            left: "-50%",
+                            right: "-50%",
+                            position: "relative"
+                        }}
+                        src="logo.jpg"
+                    ></img>
                     {this.state.error && (
                         <div>Something went wrong. Please try again!</div>
                     )}
@@ -83,9 +94,14 @@ export default class Login extends React.Component {
                         required
                     />
                 </div>
-                <button onClick={() => this.handleLogin()}>Login</button>
+                <button
+                    style={{ margin: "10px" }}
+                    onClick={() => this.handleLogin()}
+                >
+                    Login
+                </button>
                 <div>
-                    <Link to="/">take me to ragistration</Link>
+                    <Link to="/">Register</Link>
                 </div>
             </div>
         );

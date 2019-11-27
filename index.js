@@ -6,7 +6,9 @@ const bodyParser = require("body-parser");
 const csurf = require("csurf");
 const db = require("./utils/db");
 const { hash, compare } = require("./utils/bc");
-// const secretCookieSession = require("./secrets.json");
+// const secretCookieSession = require("./secrets.json")
+
+app.use(express.static("./public"));
 
 app.use(bodyParser());
 app.use(compression());
