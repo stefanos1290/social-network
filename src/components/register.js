@@ -25,7 +25,16 @@ class Registration extends Component {
                 email: email,
                 password: password
             })
-            .then(console.log("register then")) // TODO: finish then
+            .then(({ data }) => {
+                console.log(data);
+                if (data.success) {
+                    location.replace("/");
+                } else {
+                    this.setState({
+                        error: true
+                    });
+                }
+            })
             .catch(e => {
                 this.setState({ error: true });
             })
@@ -42,12 +51,20 @@ class Registration extends Component {
         }
 
         return (
-            <div>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center"
+                }}
+            >
                 <div
                     style={{
                         display: "flex",
                         flexDirection: "column",
-                        width: "300px"
+                        width: "200px"
                     }}
                 >
                     {this.state.error && (
@@ -61,6 +78,7 @@ class Registration extends Component {
                         value={firstName}
                         type="text"
                         placeholder="First Name"
+                        required
                     />
                     <input
                         onChange={e =>
@@ -69,12 +87,14 @@ class Registration extends Component {
                         value={lastName}
                         type="text"
                         placeholder="Last Name"
+                        required
                     />
                     <input
                         onChange={e => this.setState({ email: e.target.value })}
                         value={email}
                         type="email"
                         placeholder="Email"
+                        required
                     />
                     <input
                         onChange={e =>
@@ -83,11 +103,10 @@ class Registration extends Component {
                         value={password}
                         type="password"
                         placeholder="Password"
+                        required
                     />
-                    <button onClick={() => this.handleRegister()}>
-                        Register
-                    </button>
                 </div>
+                <button onClick={() => this.handleRegister()}>Register</button>
                 <div>
                     {/* <h1>I am login!</h1> */}
                     <Link to="/login">click here to Login</Link>

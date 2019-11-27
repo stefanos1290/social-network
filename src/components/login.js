@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import axios from "../axios";
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -21,7 +22,15 @@ export default class Login extends React.Component {
                 email: email,
                 password: password
             })
-            .then(console.log("login then")) // TODO: finish then
+            .then(({ data }) => {
+                if (data.success) {
+                    location.replace("/");
+                } else {
+                    this.setState({
+                        error: true
+                    });
+                }
+            })
             .catch(e => {
                 this.setState({ error: true });
             })
@@ -37,22 +46,32 @@ export default class Login extends React.Component {
             return <div>Loading...</div>;
         }
         return (
-            <div>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center"
+                }}
+            >
                 <div
                     style={{
                         display: "flex",
                         flexDirection: "column",
-                        width: "300px"
+                        width: "200px"
                     }}
                 >
                     {this.state.error && (
                         <div>Something went wrong. Please try again!</div>
                     )}
+                    <h1>I am login!</h1>
                     <input
                         onChange={e => this.setState({ email: e.target.value })}
                         value={email}
                         type="email"
                         placeholder="Email"
+                        required
                     />
                     <input
                         onChange={e =>
@@ -61,15 +80,14 @@ export default class Login extends React.Component {
                         value={password}
                         type="password"
                         placeholder="Password"
+                        required
                     />
-                    <button onClick={() => this.handleLogin()}>Register</button>
                 </div>
+                <button onClick={() => this.handleLogin()}>Login</button>
                 <div>
-                    <h1>I am login!</h1>
                     <Link to="/">take me to ragistration</Link>
                 </div>
             </div>
         );
     }
 }
-// export default Login;
