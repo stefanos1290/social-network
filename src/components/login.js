@@ -74,9 +74,11 @@ export default class Login extends React.Component {
                         src="logo.jpg"
                     ></img>
                     {this.state.error && (
-                        <div>Something went wrong. Please try again!</div>
+                        <div style={{ color: "red", fontSize: "20px" }}>
+                            Something went wrong! Please try again!
+                        </div>
                     )}
-                    <h1>I am login!</h1>
+                    <h1>Login here</h1>
                     <input
                         onChange={e => this.setState({ email: e.target.value })}
                         value={email}

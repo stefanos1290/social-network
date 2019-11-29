@@ -15,6 +15,21 @@ module.exports.registerUser = function registerUser({
         [firstName, lastName, email, password]
     );
 };
+
+module.exports.uploadImageToUser = function uploadImageToUser(image, id) {
+    return db.query("UPDATE users set image = ($1) WHERE id = ($2)", [
+        image,
+        id
+    ]);
+};
+
+module.exports.getUserData = function(id) {
+    return db.query(
+        "select firstname, lastname, email, image from users where users.id = ($1)",
+        [id]
+    );
+};
+
 module.exports.getUserInfo = function getUserInfo(email) {
     return db.query("SELECT password, id FROM users WHERE email = $1", [email]);
 };

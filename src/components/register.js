@@ -79,7 +79,9 @@ class Registration extends Component {
                         src="logo.jpg"
                     ></img>
                     {this.state.error && (
-                        <div>Something went wrong. Please try again!</div>
+                        <div style={{ color: "red", fontSize: "20px" }}>
+                            Something went wrong! Please try again!
+                        </div>
                     )}
                     <h1>Register here</h1>
                     <input

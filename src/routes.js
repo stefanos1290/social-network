@@ -1,19 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Welcome from "./components/welcome";
+import { App } from "./components/app";
+import Uploader from "./components/uploader";
+import { profilePic } from "./components/profile";
 
-const Home = () => (
-    <div>
-        <img
-            style={{
-                width: "100px",
-                borderRadius: "50px"
-            }}
-            src="logo.jpg"
-        ></img>
-        <hr />
-    </div>
-);
+const Home = () => <App />;
 
 export default () => {
     return (

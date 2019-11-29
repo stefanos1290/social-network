@@ -4,9 +4,19 @@ const cookieSession = require("cookie-session");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const csurf = require("csurf");
+var multer = require("multer");
 const db = require("./utils/db");
 const { hash, compare } = require("./utils/bc");
 // const secretCookieSession = require("./secrets.json")
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, "public");
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname);
+    }
+});
 
 app.use(express.static("./public"));
 
@@ -46,6 +56,13 @@ app.get("/welcome", function(req, res) {
     } else {
         res.sendFile(__dirname + "/index.html");
     }
+});
+
+app.get("/getuserdata", (req, res) => {
+    const userId = req.session.userId;
+    db.getUserData(userId).then(function(data) {
+        res.status(200).send(data.rows[0]);
+    });
 });
 
 app.get("*", function(req, res) {
@@ -93,6 +110,26 @@ app.post("/login", (req, res) => {
                 error: "incorrect password and/or email"
             });
         });
+});
+var upload = multer({ storage: storage }).single("file");
+
+app.post("/upload", function(req, res) {
+    upload(req, res, function(err) {
+        if (err instanceof multer.MulterError) {
+            return res.status(500).json(err);
+        } else if (err) {
+            return res.status(500).json(err);
+        }
+        const userId = req.session.userId;
+        const file = req.file.filename;
+        db.uploadImageToUser(file, userId)
+            .then(function() {
+                return res.status(200).send(req.file);
+            })
+            .catch(function() {
+                return res.statusCode(501);
+            });
+    });
 });
 
 app.listen(8080, function() {

@@ -5,7 +5,7 @@ import { HashRouter, Route } from "react-router-dom";
 
 export default () => {
     return (
-        <div style={{ backgroundColor: "#66d9fd", margin: "0" }}>
+        <div>
             <h1 style={{ textAlign: "center" }}>Welcome</h1>
             <HashRouter>
                 <div>
