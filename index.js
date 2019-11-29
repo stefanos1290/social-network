@@ -132,6 +132,22 @@ app.post("/upload", function(req, res) {
     });
 });
 
+app.post("/bio", (req, res) => {
+    db.updateBio(req.body.bio, req.session.userId)
+        .then(() => {
+            res.json({});
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({ err });
+        });
+});
+app.post("/logout", (req, res) => {
+    console.log("logout");
+    req.session = null;
+    res.redirect("/");
+});
+
 app.listen(8080, function() {
     console.log("I'm listening.");
 });

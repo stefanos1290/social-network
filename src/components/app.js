@@ -16,6 +16,8 @@ export class App extends React.Component {
         };
         this.toggleModal = this.toggleModal.bind(this);
         this.replacePicture = this.replacePicture.bind(this);
+        this.logout = this.logout.bind(this);
+        this.updateBio = this.updateBio.bind(this);
     }
 
     componentDidMount() {
@@ -40,7 +42,6 @@ export class App extends React.Component {
             uploaderIsVisible: !this.state.uploaderIsVisible
         });
     }
-
     replacePicture(file) {
         //this.setState({ imageUrl: src });
         const data = new FormData();
@@ -58,6 +59,17 @@ export class App extends React.Component {
             });
     }
 
+    updateBio(bio) {
+        this.setState({
+            bio: bio
+        });
+    }
+
+    logout() {
+        axios.post("/logout");
+        location.replace("/welcome");
+    }
+
     render() {
         if (!this.state.loaded) {
             return <div>Loading...</div>;
@@ -67,6 +79,7 @@ export class App extends React.Component {
             <div>
                 <div>
                     <img
+                        onClick={this.logout}
                         style={{
                             width: "100px",
                             borderRadius: "50px"
@@ -87,11 +100,13 @@ export class App extends React.Component {
                     <hr />
                 </div>
                 <div>
-                    <h1>Hello from app</h1>
+                    <h1>app page</h1>
                     <Profile
                         firstName={this.state.firstName}
                         lastName={this.state.lastName}
                         imageUrl={this.state.imageUrl}
+                        bio={this.state.bio}
+                        updateBio={this.updateBio}
                     />
                     {this.state.uploaderIsVisible && (
                         <Uploader

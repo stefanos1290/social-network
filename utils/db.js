@@ -23,6 +23,10 @@ module.exports.uploadImageToUser = function uploadImageToUser(image, id) {
     ]);
 };
 
+module.exports.updateBio = function updateBio(bio, id) {
+    return db.query("UPDATE users set bio = ($1) WHERE id = ($2)", [bio, id]);
+};
+
 module.exports.getUserData = function(id) {
     return db.query(
         "select firstname, lastname, email, image from users where users.id = ($1)",
