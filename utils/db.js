@@ -29,7 +29,7 @@ module.exports.updateBio = function updateBio(bio, id) {
 
 module.exports.getUserData = function(id) {
     return db.query(
-        "select firstname, lastname, email, image from users where users.id = ($1)",
+        "select firstname, lastname, email, image, bio from users where users.id = ($1)",
         [id]
     );
 };

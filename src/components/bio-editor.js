@@ -9,11 +9,11 @@ export class BioEditor extends React.Component {
             buttonText: "Edit Bio",
             bio: ""
         };
-        this.showTextArea = this.showTextArea.bind(this);
+        this.toggleTextArea = this.toggleTextArea.bind(this);
         this.setBio = this.setBio.bind(this);
     }
 
-    showTextArea() {
+    toggleTextArea() {
         this.setState({
             editingMode: !this.state.editingMode
         });
@@ -23,7 +23,7 @@ export class BioEditor extends React.Component {
             .post("/bio", { bio: this.state.bio })
             .then(() => {
                 this.props.updateBio(this.state.bio);
-                this.showTextArea();
+                this.toggleTextArea();
             })
             .catch();
     }
@@ -65,7 +65,7 @@ export class BioEditor extends React.Component {
             return (
                 <div>
                     <h1>{this.props.bio}</h1>
-                    <button onClick={this.showTextArea}>
+                    <button onClick={this.toggleTextArea}>
                         {this.state.buttonText}
                     </button>
                 </div>

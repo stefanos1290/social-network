@@ -60,9 +60,14 @@ export class App extends React.Component {
     }
 
     updateBio(bio) {
-        this.setState({
-            bio: bio
-        });
+        this.setState(
+            {
+                bio: bio
+            },
+            () => {
+                console.log("update bio: ", this.state.bio);
+            }
+        );
     }
 
     logout() {
@@ -74,7 +79,6 @@ export class App extends React.Component {
         if (!this.state.loaded) {
             return <div>Loading...</div>;
         }
-
         return (
             <div>
                 <div>
