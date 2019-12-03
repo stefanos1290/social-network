@@ -46,16 +46,20 @@ export default () => {
             <div>
                 <input value={value} onChange={e => setValue(e.target.value)} />
                 <button onClick={() => setLoadUsers(true)}>Search</button>
+                <button onClick={() => setUser([])}>Clear</button>
             </div>
             <div>{hasError && <div>error</div>}</div>
             <div>
-                {user.map(user => {
-                    return (
-                        <div key={user.id}>
-                            <User {...user} />
-                        </div>
-                    );
-                })}
+                {user
+                    .sort()
+                    .slice(0, 5)
+                    .map(user => {
+                        return (
+                            <div key={user.id}>
+                                <User {...user} />
+                            </div>
+                        );
+                    })}
             </div>
         </div>
     );
