@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "../axios";
 import Uploader from "./uploader";
+import { Link } from "react-router-dom";
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -53,6 +54,9 @@ export default class Header extends React.Component {
                     }}
                     src="logo.jpg"
                 ></img>
+                <div>
+                    <Link to="/users">Find People</Link>
+                </div>
                 <img
                     onClick={this.toggleModal}
                     style={{

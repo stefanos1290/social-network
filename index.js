@@ -105,7 +105,7 @@ app.post("/login", (req, res) => {
                 .then(match => {
                     if (match) {
                         console.log(match);
-                        req.session.user = userId;
+                        req.session.userId = userId;
                         res.json({ success: true });
                     }
                 })
@@ -136,6 +136,13 @@ app.post("/upload", function(req, res) {
             .catch(function() {
                 return res.statusCode(501);
             });
+    });
+});
+
+app.post("/users", (req, res) => {
+    const { value } = req.body;
+    db.getMatchingActors(value).then(function(data) {
+        return res.status(200).json(data.rows);
     });
 });
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Welcome from "./components/welcome";
+import Users from "./pages/findUsers";
 import { App } from "./components/app";
 import { OtherProfile } from "./components/otherprofile";
 import Header from "./components/header";
@@ -60,6 +61,9 @@ export default class extends React.Component {
                                     imageUrl={this.state.image}
                                     setUserId={id => this.setUserId(id)}
                                 />
+                            </Route>
+                            <Route exact path="/users">
+                                <Users />
                             </Route>
                             <Route exact path="/welcome">
                                 <Welcome
