@@ -2,24 +2,86 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Welcome from "./components/welcome";
 import { App } from "./components/app";
-import Uploader from "./components/uploader";
-import { profilePic } from "./components/profile";
+import { OtherProfile } from "./components/otherprofile";
+import Header from "./components/header";
 
-const Home = () => <App />;
+const Home = props => <App {...props} />;
 
-export default () => {
-    return (
-        <Router>
+export default class extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            image: null,
+            userId: null, // TODO: touto prepi na to valume se session i cookie, g na miniski meta p refreash
+            showHeader: true
+        };
+
+        this.setUserId = this.setUserId.bind(this);
+        this.setImage = this.setImage.bind(this);
+        this.setHeaderVisibility = this.setHeaderVisibility.bind(this);
+    }
+
+    setHeaderVisibility(flag) {
+        this.setState({ showHeader: flag });
+    }
+
+    setUserId(id) {
+        this.setState({ userId: id });
+    }
+
+    setImage(image) {
+        this.setState({ image: image });
+    }
+
+    render() {
+        return (
             <div>
-                <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route path="/welcome">
-                        <Welcome />
-                    </Route>
-                </Switch>
+                <Router>
+                    <div>
+                        <div>
+                            <div
+                                style={{
+                                    display: this.state.showHeader
+                                        ? "block"
+                                        : "none"
+                                }}
+                            >
+                                <Header
+                                    imageUrl={this.state.image}
+                                    setImage={imageUrl =>
+                                        this.setImage(imageUrl)
+                                    }
+                                />
+                            </div>
+                        </div>
+                        <Switch>
+                            <Route exact path="/">
+                                <Home
+                                    imageUrl={this.state.image}
+                                    setUserId={id => this.setUserId(id)}
+                                />
+                            </Route>
+                            <Route exact path="/welcome">
+                                <Welcome
+                                    setHeaderVisibility={f =>
+                                        this.setHeaderVisibility(f)
+                                    }
+                                />
+                            </Route>
+                            <Route
+                                exact
+                                path="/user/:id"
+                                component={props => (
+                                    <OtherProfile
+                                        {...props}
+                                        userId={this.state.userId}
+                                    />
+                                )}
+                            />
+                        </Switch>
+                    </div>
+                </Router>
             </div>
-        </Router>
-    );
-};
+        );
+    }
+}

@@ -34,22 +34,11 @@ export class BioEditor extends React.Component {
         });
     }
 
-    componentDidMount() {
-        console.log("didMount: ", this.props);
-        if (!this.props.bio) {
-            console.log("no bio!");
-            this.setState(
-                {
-                    buttonText: "add your Bio"
-                },
-                () => {
-                    console.log("this.state: ", this.state);
-                }
-            );
-        }
-    }
-
     render() {
+        let buttonText;
+        this.props.bio
+            ? (buttonText = "Edit your bio")
+            : (buttonText = "Add your bio");
         if (this.state.editingMode) {
             return (
                 <div>
@@ -64,10 +53,8 @@ export class BioEditor extends React.Component {
         } else {
             return (
                 <div>
-                    <h1>{this.props.bio}</h1>
-                    <button onClick={this.toggleTextArea}>
-                        {this.state.buttonText}
-                    </button>
+                    <h3>{this.props.bio}</h3>
+                    <button onClick={this.toggleTextArea}>{buttonText}</button>
                 </div>
             );
         }

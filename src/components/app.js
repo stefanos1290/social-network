@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "../axios";
-import { ProfilePic } from "./profile";
-import Uploader from "./uploader";
 import { Profile } from "./profiles";
+import { Route } from "react-router-dom";
 
 export class App extends React.Component {
     constructor(props) {
@@ -11,24 +10,21 @@ export class App extends React.Component {
             loaded: false,
             firstName: "",
             lastName: "",
-            uploaderIsVisible: false,
-            imageUrl: null
+            uploaderIsVisible: false
         };
         this.toggleModal = this.toggleModal.bind(this);
-        this.replacePicture = this.replacePicture.bind(this);
-        this.logout = this.logout.bind(this);
         this.updateBio = this.updateBio.bind(this);
     }
 
     componentDidMount() {
-        console.log("app mounted");
         axios.get("/getuserdata").then(response => {
             this.setState({
                 loaded: true,
                 firstName: response.data.firstname,
                 lastName: response.data.lastname,
-                imageUrl: `./${response.data.image}`
+                bio: response.data.bio
             });
+            this.props.setUserId(response.data.id);
         });
         //this is where we want to contact the server and ask for info about the user
         //axios.get()
@@ -37,44 +33,16 @@ export class App extends React.Component {
     }
 
     toggleModal() {
-        console.log("toggle modal is running");
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible
         });
     }
-    replacePicture(file) {
-        //this.setState({ imageUrl: src });
-        const data = new FormData();
-        data.append("file", file);
-        axios
-            .post("http://localhost:8080/upload", data, {
-                // receive two parameter endpoint url ,form data
-            })
-            .then(res => {
-                this.setState({
-                    imageUrl: `./${res.data.filename}`,
-                    uploaderIsVisible: false
-                });
-                // then print response status
-            });
-    }
 
     updateBio(bio) {
-        this.setState(
-            {
-                bio: bio
-            },
-            () => {
-                console.log("update bio: ", this.state.bio);
-            }
-        );
+        this.setState({
+            bio: bio
+        });
     }
-
-    logout() {
-        axios.post("/logout");
-        location.replace("/welcome");
-    }
-
     render() {
         if (!this.state.loaded) {
             return <div>Loading...</div>;
@@ -82,42 +50,20 @@ export class App extends React.Component {
         return (
             <div>
                 <div>
-                    <img
-                        onClick={this.logout}
-                        style={{
-                            width: "100px",
-                            borderRadius: "50px"
-                        }}
-                        src="logo.jpg"
-                    ></img>
-                    <img
-                        onClick={this.toggleModal}
-                        style={{
-                            width: "80px",
-                            borderRadius: "50px",
-                            position: "absolute",
-                            right: "20px",
-                            top: "20px"
-                        }}
-                        src={this.state.imageUrl}
-                    />
-                    <hr />
-                </div>
-                <div>
-                    <h1>app page</h1>
-                    <Profile
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        imageUrl={this.state.imageUrl}
-                        bio={this.state.bio}
-                        updateBio={this.updateBio}
-                    />
-                    {this.state.uploaderIsVisible && (
-                        <Uploader
-                            replaceImage={this.replacePicture}
-                            toggleModal={this.toggleModal}
+                    <div>
+                        <Route
+                            path="/"
+                            render={() => (
+                                <Profile
+                                    firstName={this.state.firstName}
+                                    lastName={this.state.lastName}
+                                    imageUrl={this.props.imageUrl}
+                                    bio={this.state.bio}
+                                    updateBio={this.updateBio}
+                                />
+                            )}
                         />
-                    )}
+                    </div>
                 </div>
             </div>
         );

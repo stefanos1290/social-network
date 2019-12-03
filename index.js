@@ -58,6 +58,13 @@ app.get("/welcome", function(req, res) {
     }
 });
 
+app.get("/getuserdata/:id", (req, res) => {
+    console.log(req.params.id);
+    db.getUserData(req.params.id).then(function(data) {
+        res.status(200).send(data.rows[0]);
+    });
+});
+
 app.get("/getuserdata", (req, res) => {
     const userId = req.session.userId;
     db.getUserData(userId).then(function(data) {
@@ -143,7 +150,6 @@ app.post("/bio", (req, res) => {
         });
 });
 app.post("/logout", (req, res) => {
-    console.log("logout");
     req.session = null;
     res.redirect("/");
 });
