@@ -15,6 +15,8 @@ export default class Header extends React.Component {
     }
 
     componentDidMount() {
+        // TODO: uncooment g na sasi i ikona
+        // console.log("componentDidMount - Header");
         axios.get("/getuserdata").then(response => {
             this.props.setImage(`./${response.data.image}`);
         });

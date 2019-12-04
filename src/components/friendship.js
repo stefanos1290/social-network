@@ -2,20 +2,31 @@ import React, { useState, useEffect } from "react";
 import axios from "../axios";
 
 export function Friendshipbutton({ otherId }) {
-    console.log("otherId: ", otherId);
-    const [buttonText, setButtonText] = useState("buttonText test");
+    const [buttonText, setButtonText] = useState("Make Friend Request");
 
     useEffect(() => {
-        axios.get(`/friendshipstatus/${otherId}`).then(res => {
-            console.log("res: ", res.data);
-            setButtonText(res.data.buttonText);
-        });
+        const getStatus = async () => {
+            try {
+                const { data } = await axios.get(
+                    "/friendshipstatus/" + otherId
+                );
+                setButtonText(data.buttonText);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        getStatus();
     }, []);
 
     function submit() {
-        console.log("click ", buttonText);
-        // we can do the logic here, and then send to one o 3 defferent post routes
-        // or we can make a post request to 1 route, and the route does the logic to determin what type of query to make
+        // console.log("clicked on the button", buttonText);
+        axios
+            .post("/friendshipstatus/" + otherId)
+            .then(res => {
+                // console.log("submit post axios res: ", res.data);
+                setButtonText(res.data.buttontext);
+            })
+            .catch(err => console.log(err));
     }
 
     return (

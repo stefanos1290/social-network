@@ -58,7 +58,7 @@ app.get("/welcome", function(req, res) {
     }
 });
 
-app.get("/user.json/:id", function(req, res) {
+app.get("/userjson/:id", function(req, res) {
     db.getUserData(req.params.id)
         .then(({ rows }) => {
             rows[0].meId = req.session.userId;
@@ -72,16 +72,10 @@ app.get("/user.json/:id", function(req, res) {
 app.get("/getuserdata", (req, res) => {
     const userId = req.session.userId;
     db.getUserData(userId).then(function(data) {
-        res.status(200).send(data.rows[0]);
+        const d = data.rows[0];
+        d.meId = req.session.userId;
+        res.status(200).send(d);
     });
-});
-
-app.get("*", function(req, res) {
-    if (!req.session.userId) {
-        res.redirect("/welcome");
-    } else {
-        res.sendFile(__dirname + "/index.html");
-    }
 });
 
 app.post("/register", async (req, res) => {
@@ -164,10 +158,82 @@ app.post("/logout", (req, res) => {
     res.redirect("/");
 });
 
+app.get("/friendshipstatus/:id", (req, res) => {
+    const { id } = req.params;
+    const receiverId = id;
+    const senderId = req.session.userId;
+    console.log(`id: ${id}, receiver: ${receiverId}, sender: ${senderId}`);
+    db.getFriendships(receiverId, senderId)
+        .then(({ rows }) => {
+            if (rows.length == 0) {
+                res.json({ buttonText: " Make a Request" });
+            } else if (rows[0].accepted) {
+                res.json({ buttonText: "Remove Friend" });
+            } else {
+                if (rows[0].sender_id == senderId) {
+                    res.json({ buttonText: "Cancel Request" });
+                } else {
+                    res.json({ buttonText: "Accept Request" });
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
 app.post("/friendshipstatus/:id", (req, res) => {
-    const { currentId } = req.body;
-    const { otherId } = req.body;
-    db.getFriendships();
+    const { id } = req.params;
+    const receiverId = id;
+    const senderId = req.session.userId;
+
+    db.getFriendships(receiverId, senderId)
+        .then(({ rows }) => {
+            if (rows.length == 0) {
+                db.sendFriendshipRequest(receiverId, senderId)
+                    .then(() => {
+                        console.log("friendship request row is inserted");
+                        res.json({ buttontext: "Cancel Friend" });
+                    })
+                    .catch(err => console.log(err));
+            } else if (rows[0].accepted) {
+                db.endFriendshipRequest(rows[0].id)
+                    .then(() => {
+                        console.log("friendship row is deleted");
+                        res.json({ buttontext: " Make a Request" });
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                if (rows[0].sender_id == senderId) {
+                    db.endFriendshipRequest(rows[0].id)
+                        .then(() => {
+                            console.log(
+                                "friendship request row is deleted by you"
+                            );
+                            res.json({ buttontext: " Make a Request" });
+                        })
+                        .catch(err => console.log(err));
+                } else {
+                    db.acceptFriendshipRequest(rows[0].id)
+                        .then(() => {
+                            console.log("friendship row is accepted by you");
+                            res.json({ buttontext: "Remove Friend" });
+                        })
+                        .catch(err => console.log(err));
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+app.get("*", function(req, res) {
+    if (!req.session.userId) {
+        res.redirect("/welcome");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
 });
 
 app.listen(8080, function() {

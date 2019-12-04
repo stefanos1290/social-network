@@ -49,22 +49,13 @@ export class App extends React.Component {
         }
         return (
             <div>
-                <div>
-                    <div>
-                        <Route
-                            path="/"
-                            render={() => (
-                                <Profile
-                                    firstName={this.state.firstName}
-                                    lastName={this.state.lastName}
-                                    imageUrl={this.props.imageUrl}
-                                    bio={this.state.bio}
-                                    updateBio={this.updateBio}
-                                />
-                            )}
-                        />
-                    </div>
-                </div>
+                <Profile
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    imageUrl={this.props.imageUrl}
+                    bio={this.state.bio}
+                    updateBio={this.updateBio}
+                />
             </div>
         );
     }
