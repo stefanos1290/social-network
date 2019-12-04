@@ -41,21 +41,21 @@ export class BioEditor extends React.Component {
             : (buttonText = "Add your bio");
         if (this.state.editingMode) {
             return (
-                <div>
+                <>
                     <textarea
                         name="bio"
                         onChange={e => this.handleChangeBio(e)}
                         defaultValue={this.props.bio}
                     />
                     <button onClick={this.setBio}>Save</button>
-                </div>
+                </>
             );
         } else {
             return (
-                <div>
+                <>
                     <h3>{this.props.bio}</h3>
                     <button onClick={this.toggleTextArea}>{buttonText}</button>
-                </div>
+                </>
             );
         }
     }

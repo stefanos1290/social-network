@@ -58,11 +58,15 @@ app.get("/welcome", function(req, res) {
     }
 });
 
-app.get("/getuserdata/:id", (req, res) => {
-    console.log(req.params.id);
-    db.getUserData(req.params.id).then(function(data) {
-        res.status(200).send(data.rows[0]);
-    });
+app.get("/user.json/:id", function(req, res) {
+    db.getUserData(req.params.id)
+        .then(({ rows }) => {
+            rows[0].meId = req.session.userId;
+            res.json(rows[0]);
+        })
+        .catch(err => {
+            res.json(err);
+        });
 });
 
 app.get("/getuserdata", (req, res) => {
@@ -104,7 +108,6 @@ app.post("/login", (req, res) => {
             compare(password, hashedPassword)
                 .then(match => {
                     if (match) {
-                        console.log(match);
                         req.session.userId = userId;
                         res.json({ success: true });
                     }
@@ -159,6 +162,12 @@ app.post("/bio", (req, res) => {
 app.post("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
+});
+
+app.post("/friendshipstatus/:id", (req, res) => {
+    const { currentId } = req.body;
+    const { otherId } = req.body;
+    db.getFriendships();
 });
 
 app.listen(8080, function() {

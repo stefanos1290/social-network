@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "../axios";
 
 const User = props => {
     return (
-        <div style={{ display: "flex" }}>
-            <img
-                style={{ width: "100px", height: "100px" }}
-                src={props.image}
-            />
-            <div style={{ fontSize: "25px", textAlign: "center" }}>
+        <div style={{ display: "flex", marginTop: "10px" }}>
+            <Link to={`/user/${props.id}`}>
+                <img
+                    style={{ width: "100px", height: "100px" }}
+                    src={props.image}
+                />
+            </Link>
+            <div
+                style={{
+                    fontSize: "25px",
+                    textAlign: "center",
+                    margin: "17px"
+                }}
+            >
                 {props.firstname} {props.lastname}
             </div>
+            <p>{props.bio}</p>
         </div>
     );
 };
@@ -48,11 +58,22 @@ export default () => {
                 <button onClick={() => setLoadUsers(true)}>Search</button>
                 <button onClick={() => setUser([])}>Clear</button>
             </div>
-            <div>{hasError && <div>error</div>}</div>
+            <div>
+                {hasError && (
+                    <div
+                        style={{
+                            fontSize: "100px",
+                            color: "red"
+                        }}
+                    >
+                        Error
+                    </div>
+                )}
+            </div>
             <div>
                 {user
                     .sort()
-                    .slice(0, 5)
+                    .slice(0, 6)
                     .map(user => {
                         return (
                             <div key={user.id}>

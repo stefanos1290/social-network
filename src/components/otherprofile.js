@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "../axios";
+import { Friendshipbutton } from "./friendship";
 
 export class OtherProfile extends React.Component {
     constructor(props) {
@@ -8,31 +9,35 @@ export class OtherProfile extends React.Component {
     }
 
     componentDidMount() {
-        //we waant to make a request to the server, passing along this,props.match.params.id
-        //the server needs to look up the data about that user
-        //AND send back information about the currently logged in user.
-        //we need to figure out if the other users id is the same as thw logged in users id..
-        //IF ut us then send them away....
-        if (!this.props.userId) {
-            this.props.history.push("/");
-        }
-
-        if (this.props.match.params.id === this.props.userId) {
-            this.props.history.push("/");
-        }
-
         axios
-            .get("/getuserdata/" + this.props.match.params.id)
-            .then(response => {
-                console.log(response);
+            .get(`/user.json/${this.props.match.params.id}`)
+            .then(({ data }) => {
+                if (this.props.match.params.id == this.state.userId) {
+                    this.props.history.push("/");
+                } else {
+                    this.setState({
+                        firstname: data.firstname,
+                        lastname: data.lastname,
+                        imageUrl: data.image,
+                        bio: data.bio,
+                        userId: data.meId
+                    });
+                }
             });
     }
 
     render() {
+        if (!this.state.firstname) {
+            return <h1>The user does not exist get over it</h1>;
+        }
         return (
             <div>
-                <h1>I am {this.props.userId}</h1>
-                <h1>hello from other profile {this.props.match.params.id}</h1>
+                <h1>
+                    {this.state.firstname} {this.state.lastname}
+                </h1>
+                <img src={this.state.imageUrl} />
+                <p>{this.state.bio}</p>
+                <Friendshipbutton otherId={this.props.match.params.id} />
             </div>
         );
     }

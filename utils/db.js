@@ -36,8 +36,17 @@ module.exports.getUserData = function(id) {
 
 module.exports.getMatchingActors = function(val) {
     return db.query(
-        `SELECT firstname, id, lastname, image FROM users WHERE firstname ILIKE $1;`,
+        `SELECT firstname, id, lastname, image, bio FROM users WHERE firstname ILIKE $1;`,
         [val + "%"]
+    );
+};
+
+module.exports.getFriendships = function(receiverId, senderId) {
+    return db.query(
+        `SELECT * FROM friendships 
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)`,
+        [receiverId, senderId]
     );
 };
 
