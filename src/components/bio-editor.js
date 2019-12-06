@@ -42,19 +42,38 @@ export class BioEditor extends React.Component {
         if (this.state.editingMode) {
             return (
                 <>
-                    <textarea
-                        name="bio"
-                        onChange={e => this.handleChangeBio(e)}
-                        defaultValue={this.props.bio}
-                    />
-                    <button onClick={this.setBio}>Save</button>
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: "200px",
+                            left: "285px"
+                        }}
+                    >
+                        <textarea
+                            style={{ width: "200px", height: "100px" }}
+                            name="bio"
+                            onChange={e => this.handleChangeBio(e)}
+                            defaultValue={this.props.bio}
+                        />
+                        <button onClick={this.setBio}>Save</button>
+                    </div>
                 </>
             );
         } else {
             return (
                 <>
-                    <h3>{this.props.bio}</h3>
-                    <button onClick={this.toggleTextArea}>{buttonText}</button>
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: "200px",
+                            left: "285px"
+                        }}
+                    >
+                        <h3>{this.props.bio}</h3>
+                        <button onClick={this.toggleTextArea}>
+                            {buttonText}
+                        </button>
+                    </div>
                 </>
             );
         }

@@ -9,14 +9,21 @@ export function ProfilePic({ firstName, lastName, imageUrl }) {
     }
 
     return (
-        <div>
+        <div style={{ display: "flex" }}>
+            <div>
+                <img
+                    style={{
+                        width: "250px",
+                        borderRadius: "20px",
+                        margin: "15px"
+                    }}
+                    src={a}
+                />
+            </div>
             <div>
                 <h1>
                     {firstName} {lastName}
                 </h1>
-            </div>
-            <div>
-                <img style={{ width: "250px", borderRadius: "20px" }} src={a} />
             </div>
         </div>
     );

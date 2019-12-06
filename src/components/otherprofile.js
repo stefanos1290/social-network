@@ -14,14 +14,12 @@ export default props => {
     const [userDataLoaded, setUserDataLoaded] = useState(false);
 
     useEffect(() => {
-        console.log("useEffect");
         if (userDataLoaded) {
             return;
         }
         const getData = () => {
             axios.get(`/userjson/${props.match.params.id}`).then(({ data }) => {
                 if (props.match.params.id == userData.userId) {
-                    console.log("Whats up");
                     props.history.push("/");
                 } else {
                     setUserData({

@@ -19,11 +19,9 @@ export function Friendshipbutton({ otherId }) {
     }, []);
 
     function submit() {
-        // console.log("clicked on the button", buttonText);
         axios
             .post("/friendshipstatus/" + otherId)
             .then(res => {
-                // console.log("submit post axios res: ", res.data);
                 setButtonText(res.data.buttontext);
             })
             .catch(err => console.log(err));

@@ -26,10 +26,6 @@ export class App extends React.Component {
             });
             this.props.setUserId(response.data.id);
         });
-        //this is where we want to contact the server and ask for info about the user
-        //axios.get()
-        //when we get the info back, we want to add it to state
-        //this.setState({});
     }
 
     toggleModal() {
