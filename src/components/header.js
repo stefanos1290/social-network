@@ -55,16 +55,18 @@ export default class Header extends React.Component {
                     src="/logo.jpg"
                 ></img>
                 <div>
-                    <Link
+                    <div
                         style={{
                             position: "absolute",
-                            right: "110px",
+                            right: "115px",
                             top: "45px"
                         }}
-                        to="/users"
                     >
-                        Find People
-                    </Link>
+                        <Link style={{ marginRight: "15px" }} to="/users">
+                            Find People
+                        </Link>
+                        <Link to="/friends">Friends</Link>
+                    </div>
                 </div>
                 <img
                     onClick={this.toggleModal}

@@ -181,6 +181,22 @@ app.get("/friendshipstatus/:id", (req, res) => {
         });
 });
 
+app.post("/friendshipstatus/accept/:id", function(req, res) {
+    db.acceptFriendshipRequest(req.params.id, req.session.userId)
+        .then(response => {
+            res.json({});
+        })
+        .catch(err => console.log(err));
+});
+
+app.post("/friendshipstatus/cancel/:id", function(req, res) {
+    db.endFriendshipRequest(req.params.id, req.session.userId)
+        .then(response => {
+            res.json({});
+        })
+        .catch(err => console.log(err));
+});
+
 app.post("/friendshipstatus/:id", (req, res) => {
     const { id } = req.params;
     const receiverId = id;
@@ -191,14 +207,12 @@ app.post("/friendshipstatus/:id", (req, res) => {
             if (rows.length == 0) {
                 db.sendFriendshipRequest(receiverId, senderId)
                     .then(() => {
-                        // console.log("friendship request row is inserted");
                         res.json({ buttontext: "Cancel Friend" });
                     })
                     .catch(err => console.log(err));
             } else if (rows[0].accepted) {
                 db.endFriendshipRequest(rows[0].id)
                     .then(() => {
-                        // console.log("friendship row is deleted");
                         res.json({ buttontext: " Make a Request" });
                     })
                     .catch(err => console.log(err));
@@ -206,16 +220,12 @@ app.post("/friendshipstatus/:id", (req, res) => {
                 if (rows[0].sender_id == senderId) {
                     db.endFriendshipRequest(rows[0].id)
                         .then(() => {
-                            // console.log(
-                            //     "friendship request row is deleted by you"
-                            // );
                             res.json({ buttontext: " Make a Request" });
                         })
                         .catch(err => console.log(err));
                 } else {
                     db.acceptFriendshipRequest(rows[0].id)
                         .then(() => {
-                            // console.log("friendship row is accepted by you");
                             res.json({ buttontext: "Remove Friend" });
                         })
                         .catch(err => console.log(err));
@@ -225,6 +235,16 @@ app.post("/friendshipstatus/:id", (req, res) => {
         .catch(err => {
             console.log(err);
         });
+});
+
+app.get("/get-user-wannabes", function(req, res) {
+    db.friendWannabes(req.session.userId)
+        .then(({ rows }) => {
+            res.json({
+                data: rows
+            });
+        })
+        .catch(err => console.log(err));
 });
 
 app.get("*", function(req, res) {

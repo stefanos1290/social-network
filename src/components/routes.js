@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Welcome from "./components/welcome";
-import Users from "./pages/findUsers";
-import { App } from "./components/app";
-import OtherProfile from "./components/otherprofile";
-import Header from "./components/header";
-import Status from "./pages/status";
+import Welcome from "./welcome";
+import Users from "./findUsers";
+import { App } from "./app";
+import OtherProfile from "./otherprofile";
+import Header from "./header";
+import NewFriends from "./friends";
 
 const Home = props => <App {...props} />;
 
@@ -24,17 +24,14 @@ export default class extends React.Component {
     }
 
     setHeaderVisibility(flag) {
-        // console.log("setHeaderVisibility");
         this.setState({ showHeader: flag });
     }
 
     setUserId(id) {
-        // console.log("setUserId");
         this.setState({ userId: id });
     }
 
     setImage(image) {
-        // console.log("setImage");
         this.setState({ image: image });
     }
 
@@ -86,6 +83,9 @@ export default class extends React.Component {
                                     />
                                 )}
                             />
+                            <Route exact path="/friends">
+                                <NewFriends />
+                            </Route>
                         </Switch>
                     </div>
                 </Router>

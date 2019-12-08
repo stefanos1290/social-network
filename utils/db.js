@@ -61,14 +61,42 @@ module.exports.sendFriendshipRequest = function sendFriendshipRequest(
     );
 };
 
-module.exports.endFriendshipRequest = function endFriendshipRequest(id) {
-    return db.query(`DELETE FROM friendships WHERE id=$1;`, [id]);
+module.exports.endFriendshipRequest = function endFriendshipRequest(
+    receiver_id,
+    sender_id
+) {
+    return db.query(
+        `DELETE FROM friendships
+    WHERE (receiver_id = $1 AND sender_id = $2)
+    OR (receiver_id = $2 AND sender_id = $1)
+   `,
+        [receiver_id, sender_id]
+    );
 };
 
-module.exports.acceptFriendshipRequest = function acceptFriendshipRequest(id) {
-    return db.query(`UPDATE friendships SET accepted = true WHERE id=$1;`, [
-        id
-    ]);
+module.exports.acceptFriendshipRequest = function acceptFriendshipRequest(
+    receiver_id,
+    sender_id
+) {
+    return db.query(
+        `UPDATE friendships SET accepted = true WHERE sender_id=$1 AND receiver_id=$2 RETURNING *
+        `,
+        [sender_id, receiver_id]
+    );
+};
+
+module.exports.friendWannabes = function friendWannabes(id) {
+    return db.query(
+        `
+    SELECT users.id, firstname, lastname, image, accepted
+    FROM friendships
+    JOIN users
+    ON (accepted = false AND sender_id = $1 AND receiver_id = users.id)
+    OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)
+    OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
+  `,
+        [id]
+    );
 };
 
 module.exports.getUserInfo = function getUserInfo(email) {
