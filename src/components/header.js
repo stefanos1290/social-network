@@ -83,7 +83,7 @@ export default class Header extends React.Component {
                         right: "20px",
                         top: "20px"
                     }}
-                    src={`/${this.props.imageUrl}`}
+                    src={`${this.props.imageUrl}`}
                 />
                 <hr />
                 {this.state.uploaderIsVisible && (

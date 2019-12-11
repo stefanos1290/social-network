@@ -9,27 +9,14 @@ export function Chat() {
     const chatMessages = useSelector(
         state => state && state.chatReducer && state.chatReducer.chats
     );
-    console.log(("chatMessages: ", chatMessages));
 
     useEffect(() => {
-        console.log("elemRef.current.scrollTop:", elemRef.current.scrollTop);
-        console.log(
-            "elemRef.current.scrollHeight:",
-            elemRef.current.scrollHeight
-        );
-        console.log(
-            "elemRef.current.clientHeight:",
-            elemRef.current.clientHeight
-        );
-        console.log("elemRef.current:", elemRef.current);
-        console.log("elemRef:", elemRef);
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, []);
+    });
 
     const keyCheck = e => {
         if (e.key === "Enter") {
-            console.log("e.target.value: ", e.target.value);
             socket.emit("chatMessage", e.target.value);
             e.target.value = null;
         }

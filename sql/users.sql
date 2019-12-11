@@ -1,5 +1,3 @@
-DROP TABLE if exists users cascade;
-DROP TABLE if exists friendships;
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     firstName VARCHAR(255) NOT NULL,
