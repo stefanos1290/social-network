@@ -4,12 +4,14 @@ const cookieSession = require("cookie-session");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const csurf = require("csurf");
-var multer = require("multer");
+const multer = require("multer");
 const db = require("./utils/db");
 const { hash, compare } = require("./utils/bc");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 // const secretCookieSession = require("./secrets.json")
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "public");
     },
@@ -22,12 +24,16 @@ app.use(express.static("./public"));
 
 app.use(bodyParser());
 app.use(compression());
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(csurf());
 app.use(express.json());
@@ -255,6 +261,41 @@ app.get("*", function(req, res) {
     }
 });
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("I'm listening.");
+});
+
+io.on("connection", function(socket) {
+    console.log(`socket with the id ${socket.id} is now connected`);
+    if (!socket.request.session.userId) {
+        console.log(`socket with the id ${socket.id} is now connected`);
+        return socket.disconnect(true);
+    }
+
+    const userId = socket.request.session.userId;
+
+    db.getLastTenMessages().then(function(data) {
+        // TODO: varto na stelli mono ston enan
+        const myData = data.rows;
+        const reversedData = myData.reverse();
+        io.sockets.emit("chatMessages", reversedData);
+    });
+
+    io.on("disconnect", () => {});
+
+    socket.on("chatMessage", msg => {
+        db.insertNewChatMessage(msg, userId).then(function(id) {
+            db.getUserData(userId).then(function(data) {
+                const newMessageObj = {
+                    id: id.rows[0].id,
+                    msg: msg,
+                    image: data.rows[0].image,
+                    firstname: data.rows[0].firstname,
+                    lastname: data.rows[0].lastname,
+                    created_at: data.rows[0].created_at
+                };
+                io.sockets.emit("chatMessage", newMessageObj);
+            });
+        });
+    });
 });

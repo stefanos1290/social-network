@@ -62,6 +62,12 @@ export default class Header extends React.Component {
                             top: "45px"
                         }}
                     >
+                        <Link style={{ marginRight: "15px" }} to="/">
+                            Profile
+                        </Link>
+                        <Link style={{ marginRight: "15px" }} to="/chat">
+                            Chat
+                        </Link>
                         <Link style={{ marginRight: "15px" }} to="/users">
                             Find People
                         </Link>

@@ -29,7 +29,7 @@ module.exports.updateBio = function updateBio(bio, id) {
 
 module.exports.getUserData = function(id) {
     return db.query(
-        "select firstname, lastname, email, image, bio, id from users where users.id = ($1)",
+        "select firstname, lastname, email, image, bio, id, created_at from users where users.id = ($1)",
         [id]
     );
 };
@@ -75,13 +75,13 @@ module.exports.endFriendshipRequest = function endFriendshipRequest(
 };
 
 module.exports.acceptFriendshipRequest = function acceptFriendshipRequest(
-    receiver_id,
-    sender_id
+    sender_id,
+    receiver_id
 ) {
     return db.query(
-        `UPDATE friendships SET accepted = true WHERE sender_id=$1 AND receiver_id=$2 RETURNING *
+        `UPDATE friendships SET accepted = true WHERE receiver_id=$1 AND sender_id=$2 RETURNING *
         `,
-        [sender_id, receiver_id]
+        [receiver_id, sender_id]
     );
 };
 
@@ -91,7 +91,7 @@ module.exports.friendWannabes = function friendWannabes(id) {
     SELECT users.id, firstname, lastname, image, accepted
     FROM friendships
     JOIN users
-    ON (accepted = false AND sender_id = $1 AND receiver_id = users.id)
+    ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
     OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)
     OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
   `,
@@ -101,4 +101,24 @@ module.exports.friendWannabes = function friendWannabes(id) {
 
 module.exports.getUserInfo = function getUserInfo(email) {
     return db.query("SELECT password, id FROM users WHERE email = $1", [email]);
+};
+
+// module.exports.getLastTenChatMessages = function getLastTenChatMessages(sender_id){
+//     return db.query(`SELECT msg FROM chats WHERE `)
+// }
+
+module.exports.insertNewChatMessage = function(msg, senderId) {
+    return db.query(
+        "insert into chats (msg, sender_id) values ($1, $2) returning id",
+        [msg, senderId]
+    );
+};
+
+module.exports.getLastTenMessages = function() {
+    return db.query(
+        `select chats.id, chats.msg, users.image, users.firstname, users.lastname, chats.created_at
+        from chats
+        inner join users on users.id=chats.sender_id
+        order by chats.created_at desc limit 10`
+    );
 };

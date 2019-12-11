@@ -6,6 +6,7 @@ import { App } from "./app";
 import OtherProfile from "./otherprofile";
 import Header from "./header";
 import NewFriends from "./friends";
+import { Chat } from "./chat";
 
 const Home = props => <App {...props} />;
 
@@ -14,7 +15,7 @@ export default class extends React.Component {
         super(props);
         this.state = {
             image: null,
-            userId: null, // TODO: touto prepi na to valume se session i cookie, g na miniski meta p refreash
+            userId: null,
             showHeader: true
         };
 
@@ -85,6 +86,9 @@ export default class extends React.Component {
                             />
                             <Route exact path="/friends">
                                 <NewFriends />
+                            </Route>
+                            <Route exact path="/chat">
+                                <Chat />
                             </Route>
                         </Switch>
                     </div>

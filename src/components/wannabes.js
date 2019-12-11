@@ -1,6 +1,7 @@
 import React from "react";
 import { makeFriend } from "../redux/actions/friends.actions";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Wannabes() {
     const dispatch = useDispatch();
@@ -22,8 +23,12 @@ export default function Wannabes() {
             <h2>These people want to be your friends</h2>
             <hr />
             <div
-                style={{ display: "flex", justifyContent: "space-evenly" }}
-                className="user"
+                style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    height: "222px"
+                }}
+                className="wannabesContainer"
             >
                 {wannabes.length > 0 &&
                     wannabes.map(wannabe => (
@@ -32,17 +37,26 @@ export default function Wannabes() {
                                 <div
                                     style={{
                                         display: "flex",
-                                        flexDirection: "column"
+                                        flexDirection: "column",
+                                        border: "1px solid black",
+                                        alignItems: "center",
+                                        width: "200px",
+                                        height: "220px",
+                                        justifyContent: "space-evenly",
+                                        borderRadius: "10px",
+                                        backgroundColor: "#30b6db"
                                     }}
-                                    className="wannabesContainer"
+                                    className="wannabeCard"
                                 >
-                                    <img
-                                        style={{ width: "100px" }}
-                                        src={wannabe.image}
-                                    />
-                                    <h2>
+                                    <h2 style={{ margin: "0" }}>
                                         {wannabe.firstname} {wannabe.lastname}
                                     </h2>
+                                    <Link to={`/user/${wannabe.id}`}>
+                                        <img
+                                            style={{ width: "100px" }}
+                                            src={wannabe.image}
+                                        />
+                                    </Link>
                                     <button
                                         style={{ width: "166px" }}
                                         onClick={e =>

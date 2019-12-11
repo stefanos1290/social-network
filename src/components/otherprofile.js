@@ -48,7 +48,7 @@ export default props => {
             <h1>
                 {userData.firstname} {userData.lastname}
             </h1>
-            <img src={userData.imageUrl} />
+            <img src={`/${userData.imageUrl}`} />
             <p>{userData.bio}</p>
             <Friendshipbutton otherId={props.match.params.id} />
         </div>
