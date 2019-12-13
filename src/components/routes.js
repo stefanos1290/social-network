@@ -7,6 +7,7 @@ import OtherProfile from "./otherprofile";
 import Header from "./header";
 import NewFriends from "./friends";
 import { Chat } from "./chat";
+import OnlineUsers from "./onlineUsers";
 
 const Home = props => <App {...props} />;
 
@@ -89,6 +90,9 @@ export default class extends React.Component {
                             </Route>
                             <Route exact path="/chat">
                                 <Chat />
+                            </Route>
+                            <Route exact path="/onlineusers">
+                                <OnlineUsers />
                             </Route>
                         </Switch>
                     </div>

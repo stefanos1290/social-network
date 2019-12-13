@@ -1,7 +1,9 @@
 import { friendsActions } from "../actions";
 
 export const initialState = {
-    users: []
+    users: [],
+    onlineUsers: 0,
+    userInfo: []
 };
 
 export default function(state = initialState, action) {
@@ -42,6 +44,19 @@ export default function(state = initialState, action) {
                 })
             });
         }
+        case "SEE_ONLINE_USERS": {
+            return {
+                ...state,
+                onlineUsers: action.data
+            };
+        }
+        case "GET_ONLINE_DATA": {
+            return {
+                ...state,
+                userInfo: [...state.userInfo, action.data]
+            };
+        }
+
         default: {
             return state;
         }

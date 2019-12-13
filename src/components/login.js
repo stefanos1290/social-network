@@ -64,7 +64,7 @@ export default class Login extends React.Component {
                 >
                     <img
                         style={{
-                            borderRadius: "230px",
+                            borderRadius: "100%",
                             display: "block",
                             width: "400px",
                             left: "-50%",

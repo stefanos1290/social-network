@@ -35,7 +35,7 @@ export default function AllFriends({ friends }) {
                                 height: "220px",
                                 justifyContent: "space-evenly",
                                 borderRadius: "10px",
-                                backgroundColor: "#30b6db"
+                                backgroundColor: "#3c8c9e"
                             }}
                         >
                             <h2 style={{ margin: "0" }} className="name">

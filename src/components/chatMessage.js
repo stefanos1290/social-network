@@ -1,14 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function ChatMessage(props) {
     const date = props.created_at;
-
     return (
-        <div style={{ marginTop: "50px" }}>
+        <div style={{ marginTop: "50px", border: "1px solid, black" }}>
             <div style={{ display: "flex" }}>
                 <img
                     style={{
                         width: "65px",
+                        height: "65px",
                         borderRadius: "10px",
                         display: "inline-block"
                     }}
@@ -26,7 +27,7 @@ export default function ChatMessage(props) {
                     {props.firstname} {props.lastname}{" "}
                 </span>
                 <span
-                    style={{ color: "gray", fontSize: "13px", margin: "5px" }}
+                    style={{ color: "e0dede", fontSize: "13px", margin: "5px" }}
                 >
                     {date}
                 </span>

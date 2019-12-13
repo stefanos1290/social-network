@@ -2,7 +2,7 @@ import React from "react";
 
 export function ProfilePic({ firstName, lastName, imageUrl }) {
     let a;
-    if (imageUrl === "./null") {
+    if (imageUrl === "null") {
         a = "/default.png";
     } else {
         a = imageUrl;

@@ -44,7 +44,7 @@ export default function Wannabes() {
                                         height: "220px",
                                         justifyContent: "space-evenly",
                                         borderRadius: "10px",
-                                        backgroundColor: "#30b6db"
+                                        backgroundColor: "#3c8c9e"
                                     }}
                                     className="wannabeCard"
                                 >

@@ -11,6 +11,8 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:8080" });
 // const secretCookieSession = require("./secrets.json")
 
+const connectedUsers = {};
+
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "public");
@@ -62,6 +64,13 @@ app.get("/welcome", function(req, res) {
     } else {
         res.sendFile(__dirname + "/index.html");
     }
+});
+
+app.get("/users/onlineusers", (req, res) => {
+    const userIds = Object.keys(connectedUsers).map(x => connectedUsers[x]);
+    db.getSelectedUsers(userIds).then(function(d) {
+        res.json(d.rows);
+    });
 });
 
 app.get("/userjson/:id", function(req, res) {
@@ -266,22 +275,40 @@ server.listen(8080, function() {
 });
 
 io.on("connection", function(socket) {
-    console.log(`socket with the id ${socket.id} is now connected`);
     if (!socket.request.session.userId) {
-        console.log(`socket with the id ${socket.id} is now connected`);
         return socket.disconnect(true);
     }
-
     const userId = socket.request.session.userId;
 
+    connectedUsers[socket.id] = userId;
+    onlineUsers = Object.keys(connectedUsers).length;
+    io.sockets.emit("connectedUsers", onlineUsers);
     db.getLastTenMessages().then(function(data) {
-        // TODO: varto na stelli mono ston enan
+        // db.getUserData(userId).then(function(userData) {
+        //     const userInfo = {
+        //         id: data.rows[0].id,
+        //         firstname: data.rows[0].firstname,
+        //         lastname: data.rows[0].lastname,
+        //         image: data.rows[0].image,
+        //         bio: data.rows[0].bio
+        //     };
+        //     console.log("userInfo", userInfo);
+        //     io.sockets.emit("dataOnlineUser", userInfo);
+        // });
         const myData = data.rows;
         const reversedData = myData.reverse();
         io.sockets.emit("chatMessages", reversedData);
     });
 
-    io.on("disconnect", () => {});
+    socket.on("disconnect", function() {
+        delete connectedUsers[socket.id];
+        setTimeout(() => {
+            io.sockets.emit(
+                "connectedUsersDisconnect",
+                Object.keys(connectedUsers).length
+            );
+        }, 200);
+    });
 
     socket.on("chatMessage", msg => {
         db.insertNewChatMessage(msg, userId).then(function(id) {

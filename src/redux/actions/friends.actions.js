@@ -39,3 +39,17 @@ export async function unfriend(id) {
         console.log(err);
     }
 }
+export const seeOnlineUsers = data => {
+    return {
+        type: "SEE_ONLINE_USERS",
+        data
+    };
+};
+
+export const getOnlineData = data => {
+    console.log(data);
+    return {
+        type: "GET_ONLINE_DATA",
+        data
+    };
+};

@@ -6,6 +6,8 @@ import ChatMessage from "./chatMessage";
 export function Chat() {
     const elemRef = useRef();
 
+    const onlineUsers = useSelector(s => s.friendsReducer.onlineUsers);
+
     const chatMessages = useSelector(
         state => state && state.chatReducer && state.chatReducer.chats
     );
@@ -25,7 +27,7 @@ export function Chat() {
     return (
         <div
             style={{
-                backgroundColor: "#33b5db",
+                backgroundColor: "#398da0",
                 border: "1px solid black",
                 borderRadius: "30px",
                 width: "500px",
@@ -50,7 +52,7 @@ export function Chat() {
                     overflowY: "scroll",
                     marginLeft: "25px",
                     width: "450px",
-                    backgroundColor: "#6cc5dd",
+                    backgroundColor: "lightgray",
                     border: "1px solid black"
                 }}
                 className="chatContainer"

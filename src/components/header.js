@@ -2,8 +2,9 @@ import React from "react";
 import axios from "../axios";
 import Uploader from "./uploader";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +17,7 @@ export default class Header extends React.Component {
 
     componentDidMount() {
         axios.get("/getuserdata").then(response => {
-            this.props.setImage(`./${response.data.image}`);
+            this.props.setImage(`${response.data.image}`);
         });
     }
 
@@ -50,7 +51,7 @@ export default class Header extends React.Component {
                     onClick={this.logout}
                     style={{
                         width: "100px",
-                        borderRadius: "50px"
+                        borderRadius: "100%"
                     }}
                     src="/logo.jpg"
                 ></img>
@@ -62,6 +63,9 @@ export default class Header extends React.Component {
                             top: "45px"
                         }}
                     >
+                        <Link style={{ marginRight: "15px" }} to="/onlineusers">
+                            see all {this.props.onlineUsers} Online Users
+                        </Link>
                         <Link style={{ marginRight: "15px" }} to="/">
                             Profile
                         </Link>
@@ -78,12 +82,13 @@ export default class Header extends React.Component {
                     onClick={this.toggleModal}
                     style={{
                         width: "80px",
+                        height: "80px",
                         borderRadius: "50px",
                         position: "absolute",
                         right: "20px",
                         top: "20px"
                     }}
-                    src={`${this.props.imageUrl}`}
+                    src={`/${this.props.imageUrl}`}
                 />
                 <hr />
                 {this.state.uploaderIsVisible && (
@@ -96,3 +101,12 @@ export default class Header extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        onlineUsers: state.friendsReducer.onlineUsers
+    };
+}
+
+const ConnectedHeader = connect(mapStateToProps)(Header);
+export default ConnectedHeader;

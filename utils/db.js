@@ -103,10 +103,6 @@ module.exports.getUserInfo = function getUserInfo(email) {
     return db.query("SELECT password, id FROM users WHERE email = $1", [email]);
 };
 
-// module.exports.getLastTenChatMessages = function getLastTenChatMessages(sender_id){
-//     return db.query(`SELECT msg FROM chats WHERE `)
-// }
-
 module.exports.insertNewChatMessage = function(msg, senderId) {
     return db.query(
         "insert into chats (msg, sender_id) values ($1, $2) returning id",
@@ -121,4 +117,10 @@ module.exports.getLastTenMessages = function() {
         inner join users on users.id=chats.sender_id
         order by chats.created_at desc limit 10`
     );
+};
+
+module.exports.getSelectedUsers = function(userIds) {
+    return db.query(`SELECT * FROM users WHERE Id = ANY($1::int[])`, [
+        [...userIds]
+    ]);
 };
