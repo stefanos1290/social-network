@@ -48,6 +48,7 @@ class Header extends React.Component {
         return (
             <div>
                 <img
+                    className="test"
                     onClick={this.logout}
                     style={{
                         width: "100px",
@@ -63,19 +64,57 @@ class Header extends React.Component {
                             top: "45px"
                         }}
                     >
-                        <Link style={{ marginRight: "15px" }} to="/onlineusers">
-                            see all {this.props.onlineUsers} Online Users
-                        </Link>
-                        <Link style={{ marginRight: "15px" }} to="/">
+                        {this.props.onlineUsers > 1 && (
+                            <Link
+                                style={{
+                                    fontFamily: "monospace",
+                                    textDecoration: "none",
+                                    marginRight: "15px"
+                                }}
+                                to="/onlineusers"
+                            >
+                                {this.props.onlineUsers} Users Online
+                            </Link>
+                        )}
+                        <Link
+                            style={{
+                                marginRight: "15px",
+                                textDecoration: "none",
+                                fontFamily: "monospace"
+                            }}
+                            to="/"
+                        >
                             Profile
                         </Link>
-                        <Link style={{ marginRight: "15px" }} to="/chat">
+                        <Link
+                            style={{
+                                marginRight: "15px",
+                                textDecoration: "none",
+                                fontFamily: "monospace"
+                            }}
+                            to="/chat"
+                        >
                             Chat
                         </Link>
-                        <Link style={{ marginRight: "15px" }} to="/users">
+                        <Link
+                            style={{
+                                marginRight: "15px",
+                                textDecoration: "none",
+                                fontFamily: "monospace"
+                            }}
+                            to="/users"
+                        >
                             Find People
                         </Link>
-                        <Link to="/friends">Friends</Link>
+                        <Link
+                            style={{
+                                textDecoration: "none",
+                                fontFamily: "monospace"
+                            }}
+                            to="/friends"
+                        >
+                            Friends
+                        </Link>
                     </div>
                 </div>
                 <img

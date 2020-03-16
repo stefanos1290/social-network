@@ -52,7 +52,6 @@ export default () => {
     return (
         <div>
             <h1>Search for {value}</h1>
-            <hr />
             <div>
                 <input value={value} onChange={e => setValue(e.target.value)} />
                 <button onClick={() => setLoadUsers(true)}>Search</button>

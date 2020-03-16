@@ -1,10 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function ChatMessage(props) {
     const date = props.created_at;
+    const formatter = new Intl.DateTimeFormat("default", { month: "short" });
+    const DATE = `${new Date(date).getDate()}.${formatter.format(
+        new Date(date)
+    )} ${new Date(date).getFullYear()}, ${new Date(date).getHours()}:${new Date(
+        date
+    ).getMinutes()}`;
+
     return (
-        <div style={{ marginTop: "50px", border: "1px solid, black" }}>
+        <div style={{ marginLeft: "10px", border: "1px solid, black" }}>
             <div style={{ display: "flex" }}>
                 <img
                     style={{
@@ -29,16 +35,14 @@ export default function ChatMessage(props) {
                 <span
                     style={{ color: "e0dede", fontSize: "13px", margin: "5px" }}
                 >
-                    {date}
+                    {DATE}
                 </span>
             </div>
             <p
                 style={{
-                    overflowWrap: "break-word",
-                    marginTop: "0",
-                    marginBottom: "0",
-                    marginRight: "15px",
-                    marginLeft: "70px"
+                    position: "relative",
+                    left: "75px",
+                    bottom: "40px"
                 }}
             >
                 {props.msg}

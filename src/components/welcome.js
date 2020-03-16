@@ -14,7 +14,6 @@ export default props => {
 
     return (
         <div>
-            <h1 style={{ textAlign: "center" }}>Welcome</h1>
             <HashRouter>
                 <div>
                     <Route exact path="/" component={Registration} />

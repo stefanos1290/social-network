@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from "react";
 import { socket } from "../../socket/socket";
 import { useSelector } from "react-redux";
 import ChatMessage from "./chatMessage";
+import TextField from "@material-ui/core/TextField";
+
+// const Background = require("../../public/images/chat-room.jpeg"); // tto prokali to error
 
 export function Chat() {
     const elemRef = useRef();
@@ -26,34 +29,50 @@ export function Chat() {
 
     return (
         <div
-            style={{
-                backgroundColor: "#398da0",
-                border: "1px solid black",
-                borderRadius: "30px",
-                width: "500px",
-                margin: "auto",
-                marginTop: "30px",
-                display: "flex",
-                flexDirection: "column"
-            }}
+            // style in css file - background image
             className="chat"
         >
             <h1
+                className="chat-room"
                 style={{
-                    textAlign: "center"
+                    textAlign: "center",
+                    marginTop: "70px",
+                    transition: "0.5s",
+                    letterSpacing: "4px",
+                    fontFamily: "consolas",
+                    textTransform: "uppercase",
+                    zIndex: "3",
+                    color: "white"
                 }}
             >
+                <div className="test2"></div>
                 Chat Room
+                <div className="test3"></div>
             </h1>
+            <div
+                style={{
+                    height: "490px",
+                    width: "450px",
+                    position: "absolute",
+                    backgroundColor: "black",
+                    top: "150.4px",
+                    left: "427.5px",
+                    zIndex: "1",
+                    opacity: "0.8",
+                    borderRadius: "20px"
+                }}
+            ></div>
             <div
                 ref={elemRef}
                 style={{
                     height: "300px",
                     overflowY: "scroll",
+                    scrollBehavior: "smooth",
                     marginLeft: "25px",
                     width: "450px",
-                    backgroundColor: "lightgray",
-                    border: "1px solid black"
+                    zIndex: "2",
+                    position: "relative",
+                    top: "30px"
                 }}
                 className="chatContainer"
             >
@@ -63,15 +82,19 @@ export function Chat() {
                     </div>
                 ))}
             </div>
-            <textarea
+            <TextField
+                id="standard-search"
+                label="Message"
+                type="search"
                 style={{
                     width: "350px",
-                    margin: "auto",
-                    marginBottom: "3px"
+                    zIndex: "3",
+                    position: "relative",
+                    top: "45px"
                 }}
                 onKeyUp={keyCheck}
                 placeholder="add your message here..."
-            ></textarea>
+            ></TextField>
         </div>
     );
 }

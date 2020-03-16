@@ -15,11 +15,11 @@ export default function NewFriends() {
     }, []);
 
     return (
-        <div>
-            <div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ width: "50vw" }}>
                 <Wannabes />
             </div>
-            <div>
+            <div style={{ width: "50vw" }}>
                 <AllFriends friends={friends} />
             </div>
         </div>

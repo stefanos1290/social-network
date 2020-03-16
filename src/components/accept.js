@@ -19,7 +19,7 @@ export default function makeFriend() {
                     <img src={user.image} />
                     <div className="buttons">
                         <button
-                            onClick={e =>
+                            onClick={() =>
                                 dispatch(friendsActions.unfriend(user.id))
                             }
                         >
