@@ -30,34 +30,37 @@ export function Chat() {
 
     return (
         <div className="chat">
-            <h1 className={classes.chatRoom}>
-                <div className="test2"></div>
-                Chat Room
-                <div className="test3"></div>
-            </h1>
-            <div className={classes.chatBackground}></div>
-            <div ref={elemRef} className={classes.chatScroll}>
-                {chatMessages.map(item => (
-                    <div key={`chat_id_${item.id}`}>
-                        <ChatMessage {...item} />
+            <div className="chatBackground">
+                <h1 className={classes.chatRoom}>
+                    <div className="test2"></div>
+                    Chat Room
+                    <div className="test3"></div>
+                </h1>
+                <div ref={elemRef} className={classes.chatScroll}>
+                    <div className={classes.chatScrollBackground}>
+                        {chatMessages.map(item => (
+                            <div key={`chat_id_${item.id}`}>
+                                <ChatMessage {...item} />
+                            </div>
+                        ))}
                     </div>
-                ))}
+                </div>
+                <TextField
+                    className={classes.textField}
+                    id="standard-search"
+                    label="Message"
+                    type="search"
+                    onKeyUp={keyCheck}
+                    placeholder="add your message here..."
+                ></TextField>
             </div>
-            <TextField
-                className={classes.textField}
-                id="standard-search"
-                label="Message"
-                type="search"
-                onKeyUp={keyCheck}
-                placeholder="add your message here..."
-            ></TextField>
         </div>
     );
 }
 
 const myStyles = makeStyles(() => ({
-    chatRoom: {},
-    chatBackground: {},
-    chatScroll: {},
-    textField: {}
+    chatRoom: { position: "sticky", top: "0" },
+    chatScroll: { padding: "50px" },
+    chatScrollBackground: {},
+    textField: { position: "sticky", bottom: "0" }
 }));
