@@ -3,13 +3,14 @@ import { socket } from "../../socket/socket";
 import { useSelector } from "react-redux";
 import ChatMessage from "./chatMessage";
 import TextField from "@material-ui/core/TextField";
-
-// const Background = require("../../public/images/chat-room.jpeg"); // tto prokali to error
+import { makeStyles } from "@material-ui/core/styles";
 
 export function Chat() {
     const elemRef = useRef();
 
-    const onlineUsers = useSelector(s => s.friendsReducer.onlineUsers);
+    const classes = myStyles();
+
+    // const onlineUsers = useSelector(s => s.friendsReducer.onlineUsers);
 
     const chatMessages = useSelector(
         state => state && state.chatReducer && state.chatReducer.chats
@@ -28,54 +29,14 @@ export function Chat() {
     };
 
     return (
-        <div
-            // style in css file - background image
-            className="chat"
-        >
-            <h1
-                className="chat-room"
-                style={{
-                    textAlign: "center",
-                    marginTop: "70px",
-                    transition: "0.5s",
-                    letterSpacing: "4px",
-                    fontFamily: "consolas",
-                    textTransform: "uppercase",
-                    zIndex: "3",
-                    color: "white"
-                }}
-            >
+        <div className="chat">
+            <h1 className={classes.chatRoom}>
                 <div className="test2"></div>
                 Chat Room
                 <div className="test3"></div>
             </h1>
-            <div
-                style={{
-                    height: "490px",
-                    width: "450px",
-                    position: "absolute",
-                    backgroundColor: "black",
-                    top: "150.4px",
-                    left: "427.5px",
-                    zIndex: "1",
-                    opacity: "0.8",
-                    borderRadius: "20px"
-                }}
-            ></div>
-            <div
-                ref={elemRef}
-                style={{
-                    height: "300px",
-                    overflowY: "scroll",
-                    scrollBehavior: "smooth",
-                    marginLeft: "25px",
-                    width: "450px",
-                    zIndex: "2",
-                    position: "relative",
-                    top: "30px"
-                }}
-                className="chatContainer"
-            >
+            <div className={classes.chatBackground}></div>
+            <div ref={elemRef} className={classes.chatScroll}>
                 {chatMessages.map(item => (
                     <div key={`chat_id_${item.id}`}>
                         <ChatMessage {...item} />
@@ -83,18 +44,20 @@ export function Chat() {
                 ))}
             </div>
             <TextField
+                className={classes.textField}
                 id="standard-search"
                 label="Message"
                 type="search"
-                style={{
-                    width: "350px",
-                    zIndex: "3",
-                    position: "relative",
-                    top: "45px"
-                }}
                 onKeyUp={keyCheck}
                 placeholder="add your message here..."
             ></TextField>
         </div>
     );
 }
+
+const myStyles = makeStyles(() => ({
+    chatRoom: {},
+    chatBackground: {},
+    chatScroll: {},
+    textField: {}
+}));
