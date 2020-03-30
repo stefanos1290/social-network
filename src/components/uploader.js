@@ -1,7 +1,9 @@
 import React from "react";
-import axios from "../axios";
+import Button from "@material-ui/core/Button";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { withStyles } from "@material-ui/core/styles";
 
-export default class Uploader extends React.Component {
+class Uploader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,21 +62,28 @@ export default class Uploader extends React.Component {
                                 padding: "6px 12px"
                             }}
                         />
-                        <button onClick={() => this.props.toggleModal()}>
+                        <Button onClick={() => this.props.toggleModal()}>
                             Close
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="default"
+                            startIcon={<CloudUploadIcon />}
                             onClick={() =>
                                 this.props.replaceImage(
                                     this.state.uploadedImage
                                 )
                             }
                         >
-                            Upload
-                        </button>
+                            UPLOAD
+                        </Button>
                     </div>
                 </div>
             </div>
         );
     }
 }
+
+const styles = theme => ({});
+
+export default withStyles(styles)(Uploader);

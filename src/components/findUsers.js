@@ -167,7 +167,7 @@ const myStyles = makeStyles(() => ({
     usersContainerScroll: {
         position: "absolute",
         width: "100%",
-        height: "390px",
+        height: "448%",
         top: "118px",
         overflowY: "scroll",
         background: "black",

@@ -3,18 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default function ChatMessage(props) {
     const date = props.created_at;
-    const formatter = new Intl.DateTimeFormat("default", { month: "short" });
-    const DATE = `${new Date(date).getDate()}.${formatter.format(
-        new Date(date)
-    )} ${new Date(date).getFullYear()}, ${new Date(date).getHours()}:${new Date(
+    const DATE = `${new Date(date).getDate()}.${new Date(
         date
-    ).getMinutes()}`;
+    ).getMonth()}.${new Date(date).getFullYear()}, ${new Date(
+        date
+    ).getHours()}:${new Date(date).getMinutes()}`;
 
     const classes = myStyles();
 
     return (
         <div>
             <div className={classes.container}>
+                <div className={classes.messageBackground}></div>
                 <img className={classes.image} src={`${props.image}`} />
                 <div className={classes.lettersContainer}>
                     <span className={classes.name}>
@@ -30,8 +30,21 @@ export default function ChatMessage(props) {
 
 const myStyles = makeStyles(() => ({
     container: {
-        border: "1px solid black",
-        marginTop: "20px"
+        marginTop: "30px",
+        zIndex: "1",
+        position: "relative",
+        opacity: "1",
+        width: "100%",
+        height: "100%"
+    },
+    messageBackground: {
+        width: "100%",
+        height: "100%",
+        background: "darkgray",
+        opacity: "0.5",
+        zIndex: "-1",
+        position: "absolute",
+        borderRadius: "20px"
     },
     image: {
         width: "60px",
@@ -39,22 +52,27 @@ const myStyles = makeStyles(() => ({
         borderRadius: "100%",
         position: "relative",
         top: "-15px",
-        visibility: "hidden"
+        left: "-5px"
     },
     lettersContainer: {
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
+        position: "relative",
+        top: "-65px"
     },
     name: {
-        fontSize: "20px"
+        fontSize: "25px"
     },
     date: {
-        fontSize: "13px"
+        fontSize: "13px",
+        position: "absolute",
+        right: "5px",
+        top: "40px"
     },
     massage: {
-        // position: "relative",
-        // left: "75px",
-        // bottom: "40px"
+        position: "relative",
+        top: "30px",
+        padding: "20px"
     }
 }));

@@ -46,24 +46,12 @@ class Header extends React.Component {
 
     render() {
         return (
-            <div>
-                <img
-                    className="test"
-                    onClick={this.logout}
-                    style={{
-                        width: "100px",
-                        borderRadius: "100%"
-                    }}
-                    src="/logo.jpg"
-                ></img>
+            <div className="headerContainer">
+                <div className="logout" onClick={this.logout}>
+                    LOG OUT
+                </div>
                 <div>
-                    <div
-                        style={{
-                            position: "absolute",
-                            right: "115px",
-                            top: "45px"
-                        }}
-                    >
+                    <div className="linksContainer">
                         {this.props.onlineUsers > 1 && (
                             <Link
                                 style={{
@@ -76,59 +64,23 @@ class Header extends React.Component {
                                 {this.props.onlineUsers} Users Online
                             </Link>
                         )}
-                        <Link
-                            style={{
-                                marginRight: "15px",
-                                textDecoration: "none",
-                                fontFamily: "monospace"
-                            }}
-                            to="/"
-                        >
-                            Profile
+                        <Link className="profileLink" to="/">
+                            PROFILE
                         </Link>
-                        <Link
-                            style={{
-                                marginRight: "15px",
-                                textDecoration: "none",
-                                fontFamily: "monospace"
-                            }}
-                            to="/chat"
-                        >
-                            Chat
+                        <Link className="chatLink" to="/chat">
+                            CHAT
                         </Link>
-                        <Link
-                            style={{
-                                marginRight: "15px",
-                                textDecoration: "none",
-                                fontFamily: "monospace"
-                            }}
-                            to="/users"
-                        >
-                            Find People
+                        <Link className="findPeopleLink" to="/users">
+                            FIND PEOPLE
                         </Link>
-                        <Link
-                            style={{
-                                textDecoration: "none",
-                                fontFamily: "monospace"
-                            }}
-                            to="/friends"
-                        >
-                            Friends
+                        <Link className="friendsLink" to="/friends">
+                            FRIENDS
                         </Link>
                     </div>
+                    <div onClick={this.toggleModal} className="uploadPic">
+                        UPLOAD
+                    </div>
                 </div>
-                <img
-                    onClick={this.toggleModal}
-                    style={{
-                        width: "80px",
-                        height: "80px",
-                        borderRadius: "50px",
-                        position: "absolute",
-                        right: "20px",
-                        top: "20px"
-                    }}
-                    src={`/${this.props.imageUrl}`}
-                />
                 <hr />
                 {this.state.uploaderIsVisible && (
                     <Uploader

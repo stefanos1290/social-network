@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "../axios";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/core/styles";
 
-export class BioEditor extends React.Component {
+class BioEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +21,8 @@ export class BioEditor extends React.Component {
             editingMode: !this.state.editingMode
         });
     }
-    setBio() {
+    setBio(e) {
+        e.persist();
         axios
             .post("/bio", { bio: this.state.bio })
             .then(() => {
@@ -35,47 +39,101 @@ export class BioEditor extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
         let buttonText;
-        this.props.bio
-            ? (buttonText = "Edit your bio")
-            : (buttonText = "Add your bio");
+        this.props.bio ? (buttonText = "Edit bio") : (buttonText = "Add bio");
         if (this.state.editingMode) {
             return (
                 <>
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: "200px",
-                            left: "285px"
-                        }}
-                    >
-                        <textarea
-                            style={{ width: "200px", height: "100px" }}
+                    <div className={classes.TextFieldContainer}>
+                        <TextField
+                            className={classes.textField}
                             name="bio"
                             onChange={e => this.handleChangeBio(e)}
                             defaultValue={this.props.bio}
                         />
-                        <button onClick={this.setBio}>Save</button>
+                        <Button
+                            className={classes.buttonSave}
+                            variant="contained"
+                            color="primary"
+                            onClick={this.setBio}
+                        >
+                            Save
+                        </Button>
                     </div>
                 </>
             );
         } else {
             return (
                 <>
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: "200px",
-                            left: "285px"
-                        }}
-                    >
-                        <h3>{this.props.bio}</h3>
-                        <button onClick={this.toggleTextArea}>
+                    <div className={classes.container}>
+                        <div className={classes.textContainer}>
+                            {this.props.bio === "" ? (
+                                <h3 className="bioText">No Bio added yet</h3>
+                            ) : (
+                                <h3 className="bioText">{this.props.bio}</h3>
+                            )}
+                        </div>
+                        <Button
+                            className={classes.buttonAdd}
+                            variant="contained"
+                            color="primary"
+                            onClick={this.toggleTextArea}
+                        >
                             {buttonText}
-                        </button>
+                        </Button>
                     </div>
                 </>
             );
         }
     }
 }
+
+const styles = theme => ({
+    TextFieldContainer: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        position: "apsolute",
+        bottom: "0px"
+    },
+    textContainer: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -20%)",
+        width: "80%",
+        height: "100px",
+        background: "black",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "10px",
+        display: "block",
+        overflowY: "scroll",
+        borderRadius: "20px"
+    },
+    textField: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)"
+    },
+    container: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column"
+    },
+    buttonAdd: {
+        position: "absolute",
+        bottom: "10px"
+    },
+    buttonSave: {
+        position: "absolute",
+        bottom: "10px",
+        width: "60px"
+    }
+});
+
+export default withStyles(styles)(BioEditor);

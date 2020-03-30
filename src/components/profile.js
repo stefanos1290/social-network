@@ -1,30 +1,42 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 export function ProfilePic({ firstName, lastName, imageUrl }) {
+    const classes = myStyles();
+
     let a;
     if (imageUrl === "null") {
         a = "/default.png";
     } else {
         a = imageUrl;
     }
-
     return (
-        <div style={{ display: "flex" }}>
+        <div className={classes.container}>
             <div>
-                <img
-                    style={{
-                        width: "250px",
-                        borderRadius: "20px",
-                        margin: "15px"
-                    }}
-                    src={a}
-                />
+                <img className={classes.images} src={a} />
             </div>
             <div>
-                <h1>
+                <h1 className={classes.name}>
                     {firstName} {lastName}
                 </h1>
             </div>
         </div>
     );
 }
+
+const myStyles = makeStyles(() => ({
+    container: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        position: "absolute",
+        top: "10px"
+    },
+    images: {
+        width: "100px",
+        borderRadius: "100px"
+    },
+    name: {
+        color: "black"
+    }
+}));

@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export function Chat() {
     const elemRef = useRef();
+    const elemRef1 = useRef();
 
     const classes = myStyles();
 
@@ -19,6 +20,8 @@ export function Chat() {
     useEffect(() => {
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
+
+        // elemRef.current.scrollTo(0, 20);
     });
 
     const keyCheck = e => {
@@ -32,17 +35,19 @@ export function Chat() {
         <div className="chat">
             <div className="chatBackground">
                 <h1 className={classes.chatRoom}>
-                    <div className="test2"></div>
+                    <div className="chat2"></div>
                     Chat Room
-                    <div className="test3"></div>
+                    <div className="chat3"></div>
                 </h1>
-                <div ref={elemRef} className={classes.chatScroll}>
-                    <div className={classes.chatScrollBackground}>
-                        {chatMessages.map(item => (
-                            <div key={`chat_id_${item.id}`}>
-                                <ChatMessage {...item} />
-                            </div>
-                        ))}
+                <div ref={elemRef} className={classes.newScrolling}>
+                    <div className={classes.chatScroll}>
+                        <div className={classes.chatScrollBackground}>
+                            {chatMessages.map(item => (
+                                <div key={`chat_id_${item.id}`}>
+                                    <ChatMessage {...item} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <TextField
@@ -59,8 +64,26 @@ export function Chat() {
 }
 
 const myStyles = makeStyles(() => ({
-    chatRoom: { position: "sticky", top: "0" },
     chatScroll: { padding: "50px" },
-    chatScrollBackground: {},
-    textField: { position: "sticky", bottom: "0" }
+    chatRoom: {
+        position: "relative",
+        width: "80.5%",
+        left: "50%",
+        transform: "translate(-50%, 0%)",
+        textAlign: "center"
+    },
+    textField: {
+        position: "absolute",
+        bottom: "0",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "200px"
+    },
+    newScrolling: {
+        position: "absolute",
+        width: "100%",
+        height: "71%",
+        zIndex: "100",
+        overflowY: "scroll"
+    }
 }));
