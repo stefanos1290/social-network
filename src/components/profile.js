@@ -27,16 +27,20 @@ export function ProfilePic({ firstName, lastName, imageUrl }) {
 const myStyles = makeStyles(() => ({
     container: {
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        position: "absolute",
-        top: "10px"
+        justifyContent: "center"
     },
     images: {
         width: "100px",
-        borderRadius: "100px"
+        height: "100px",
+        borderRadius: "100%",
+        position: "absolute",
+        top: "10px",
+        left: "10px"
     },
     name: {
-        color: "black"
+        color: "black",
+        position: "absolute",
+        top: "40px",
+        right: "70px"
     }
 }));

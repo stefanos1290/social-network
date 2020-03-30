@@ -1,9 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { withStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
-import BackupIcon from "@material-ui/icons/Backup";
 
 class Uploader extends React.Component {
     constructor(props) {
@@ -28,9 +26,10 @@ class Uploader extends React.Component {
                 <div className={classes.container}></div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className={classes.modal}>
-                        <h2>Want to change your image?</h2>
+                        <h2 className={classes.title}>
+                            Want to change your image?
+                        </h2>
                         <div className={classes.buttonsContainer}>
-                            <BackupIcon />
                             <input
                                 onChange={this.changeImageHandler}
                                 className="chooseFile"
@@ -49,7 +48,10 @@ class Uploader extends React.Component {
                             >
                                 SAVE
                             </Button>
-                            <Button onClick={() => this.props.toggleModal()}>
+                            <Button
+                                className={classes.close}
+                                onClick={() => this.props.toggleModal()}
+                            >
                                 Close
                             </Button>
                         </div>
@@ -85,12 +87,21 @@ const styles = theme => ({
         border: "1px solid black",
         zIndex: 1000
     },
-    chooseFile: {
-        width: "100px",
-        border: "1px solid #ccc",
-        display: "inline-block",
-        padding: "6px 12px",
-        background: "black"
+    buttonsContainer: {
+        display: "flex",
+        justifyContent: "space-around"
+    },
+    title: {
+        position: "absolute",
+        top: "10px",
+        color: "white"
+    },
+    icon: {
+        border: "1px solid black"
+    },
+    close: {
+        position: "absolute",
+        right: "40px"
     }
 });
 

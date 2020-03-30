@@ -89,28 +89,26 @@ export default () => {
                     <div>
                         {hasError && <div className={classes.error}>Error</div>}
                     </div>
+                </div>
 
-                    <div className={classes.usersContainerScroll}>
-                        {user
-                            .sort()
-                            .slice(0, 10)
-                            .map(user => {
-                                return (
+                <div className={classes.usersContainerScroll}>
+                    {user
+                        .sort()
+                        .slice(0, 10)
+                        .map(user => {
+                            return (
+                                <div
+                                    id="card"
+                                    className={classes.userCard}
+                                    key={user.id}
+                                >
                                     <div
-                                        id="card"
-                                        className={classes.userCard}
-                                        key={user.id}
-                                    >
-                                        <div
-                                            className={
-                                                classes.userCardBackground
-                                            }
-                                        ></div>
-                                        <User {...user} />
-                                    </div>
-                                );
-                            })}
-                    </div>
+                                        className={classes.userCardBackground}
+                                    ></div>
+                                    <User {...user} />
+                                </div>
+                            );
+                        })}
                 </div>
             </div>
         </div>
@@ -148,7 +146,7 @@ const stylesUsers = makeStyles(() => ({
 const myStyles = makeStyles(() => ({
     container: {
         width: "100vw",
-        height: "87vh",
+        height: "100vh",
         background: "black",
         display: "flex",
         justifyContent: "center"
@@ -167,10 +165,12 @@ const myStyles = makeStyles(() => ({
     usersContainerScroll: {
         position: "absolute",
         width: "100%",
-        height: "448%",
-        top: "118px",
+        height: "300px",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
         overflowY: "scroll",
-        background: "black",
+        background: "white",
         zIndex: "3",
         display: "flex",
         flexWrap: "wrap",

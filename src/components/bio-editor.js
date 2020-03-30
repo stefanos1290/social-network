@@ -106,8 +106,6 @@ const styles = theme => ({
         height: "100px",
         background: "black",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         padding: "10px",
         display: "block",
         overflowY: "scroll",
