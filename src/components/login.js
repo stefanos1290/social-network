@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import axios from "../axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,6 +43,7 @@ export default class Login extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
         const { email, password, loading } = this.state;
 
         if (loading) {
@@ -61,67 +63,20 @@ export default class Login extends React.Component {
                     overflow: "hidden"
                 }}
             >
-                <h1
-                    style={{
-                        position: "absolute",
-                        color: "white",
-                        zIndex: "1",
-                        top: "124px",
-                        left: "144px"
-                    }}
-                >
+                <h1 className={classes.welcome}>
                     <div className="test2"></div>
                     WELCOME
                     <div className="test3"></div>
                 </h1>
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        width: "200px",
-                        overflow: "hidden"
-                    }}
-                >
-                    <div
-                        style={{
-                            width: "350px",
-                            height: "300px",
-                            backgroundColor: "black",
-                            position: "absolute",
-                            right: "158px",
-                            top: "250px",
-                            opacity: "0.7",
-                            zIndex: "1",
-                            borderRadius: "20px"
-                        }}
-                    ></div>
-                    <img
-                        style={{
-                            borderRadius: "100%",
-                            width: "700px",
-                            position: "absolute",
-                            left: "-100px",
-                            top: "-100px",
-                            display: "block",
-                            overflowX: "hidden"
-                        }}
-                        src="logo.jpg"
-                    ></img>
+                <div className={classes.container}>
+                    <div className={classes.backgroundForm}></div>
+                    <img className={classes.logo} src="logo.jpg"></img>
                     {this.state.error && (
                         <div style={{ color: "red", fontSize: "20px" }}>
                             Something went wrong! Please try again!
                         </div>
                     )}
-                    <div
-                        style={{
-                            position: "absolute",
-                            right: "249px",
-                            top: "280px",
-                            display: "flex",
-                            flexDirection: "column",
-                            zIndex: "1"
-                        }}
-                    >
+                    <div className={classes.formContainer}>
                         <h1 style={{ color: "white" }}>Login</h1>
                         <TextField
                             onChange={e =>
@@ -152,7 +107,9 @@ export default class Login extends React.Component {
                             Login
                         </Button>
                         <div>
-                            <Link to="/">Register</Link>
+                            <Link className={classes.linkRegister} to="/">
+                                REGISTER
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -160,3 +117,53 @@ export default class Login extends React.Component {
         );
     }
 }
+
+const styles = theme => ({
+    welcome: {
+        position: "absolute",
+        color: "white",
+        zIndex: "1",
+        top: "124px",
+        left: "144px"
+    },
+    logo: {
+        borderRadius: "100%",
+        width: "700px",
+        position: "absolute",
+        left: "-100px",
+        top: "-100px",
+        display: "block",
+        overflowX: "hidden"
+    },
+    container: {
+        display: "flex",
+        flexDirection: "column",
+        width: "200px",
+        overflow: "hidden"
+    },
+    backgroundForm: {
+        width: "350px",
+        height: "300px",
+        backgroundColor: "black",
+        position: "absolute",
+        right: "158px",
+        top: "250px",
+        opacity: "0.7",
+        zIndex: "1",
+        borderRadius: "20px"
+    },
+    formContainer: {
+        position: "absolute",
+        right: "249px",
+        top: "280px",
+        display: "flex",
+        flexDirection: "column",
+        zIndex: "1"
+    },
+    linkRegister: {
+        textDecoration: "none",
+        color: "#303f9f"
+    }
+});
+
+export default withStyles(styles)(Login);

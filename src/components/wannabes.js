@@ -82,7 +82,7 @@ const myStyles = makeStyles(() => ({
     wannabesContainer: {
         display: "flex",
         justifyContent: "space-evenly",
-        height: "87vh",
+        height: "100vh",
         position: "absolute",
         left: "0px",
         width: "50%",

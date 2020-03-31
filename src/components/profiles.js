@@ -28,7 +28,7 @@ export function Profile(props) {
 const myStyles = makeStyles(() => ({
     container: {
         width: "100vw",
-        height: "90vh",
+        height: "100vh",
         background: "black"
     },
     background: {

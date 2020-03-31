@@ -76,7 +76,7 @@ export default function AllFriends({ friends }) {
 const myStyles = makeStyles(() => ({
     container: {
         width: "50vw",
-        height: "87vh",
+        height: "100vh",
         backgroundColor: "black"
     },
     friendCard: {
@@ -98,7 +98,7 @@ const myStyles = makeStyles(() => ({
     },
     friendCardScrollBackground: {
         width: "30.5%",
-        height: "60.5%",
+        height: "68.5%",
         position: "absolute",
         right: "9.8vw",
         marginTop: "61px",
@@ -115,7 +115,7 @@ const myStyles = makeStyles(() => ({
     },
     friendsScroll: {
         width: "30%",
-        height: "60%",
+        height: "68%",
         position: "absolute",
         background: "black",
         right: "10vw",
