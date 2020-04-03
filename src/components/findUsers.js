@@ -59,14 +59,18 @@ export default () => {
                     alignItems: "center"
                 }}
             >
-                <div className={classes.backgroundScroll}></div>
-                <div className={classes.textfieldContainer}>
-                    <h1 className={classes.searchFor}>Search for {value}</h1>
+                <div
+                    id="backgroundScroll"
+                    className={classes.backgroundScroll}
+                ></div>
+                <div id="searchContainer" className={classes.searchContainer}>
                     <div>
                         <TextField
                             className={classes.searchInput}
                             value={value}
                             onChange={e => setValue(e.target.value)}
+                            label="Search...."
+                            InputProps={{ className: classes.input }}
                         />
                     </div>
                     <div>
@@ -79,6 +83,7 @@ export default () => {
                             Search
                         </Button>
                         <Button
+                            className={classes.buttons}
                             variant="contained"
                             color="primary"
                             onClick={() => setUser([])}
@@ -86,12 +91,15 @@ export default () => {
                             Clear
                         </Button>
                     </div>
-                    <div>
-                        {hasError && <div className={classes.error}>Error</div>}
-                    </div>
+                </div>
+                <div>
+                    {hasError && <div className={classes.error}>Error</div>}
                 </div>
 
-                <div className={classes.usersContainerScroll}>
+                <div
+                    id="usersContainerScroll"
+                    className={classes.usersContainerScroll}
+                >
                     {user
                         .sort()
                         .slice(0, 10)
@@ -140,6 +148,9 @@ const stylesUsers = makeStyles(() => ({
     bio: {
         color: "white",
         padding: "10px"
+    },
+    input: {
+        color: "white"
     }
 }));
 
@@ -148,8 +159,7 @@ const myStyles = makeStyles(() => ({
         width: "100vw",
         height: "100vh",
         background: "black",
-        display: "flex",
-        justifyContent: "center"
+        display: "grid"
     },
     textfieldContainer: {
         display: "flex",
@@ -165,16 +175,16 @@ const myStyles = makeStyles(() => ({
     usersContainerScroll: {
         position: "absolute",
         width: "70.15%",
-        height: "56%",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -34.5%)",
+        height: "70%",
+        alignSelf: "center",
+        justifySelf: "center",
         overflowY: "scroll",
         background: "black",
         zIndex: "3",
         display: "flex",
         flexWrap: "wrap",
-        justifyContent: "space-around"
+        justifyContent: "space-around",
+        marginTop: "50px"
     },
     searchFor: {
         color: "white"
@@ -187,13 +197,17 @@ const myStyles = makeStyles(() => ({
         position: "absolute",
         width: "71%",
         height: "71%",
-        marginTop: "40px",
+        alignSelf: "center",
+        justifySelf: "center",
         background: "linear-gradient(315deg, #ff0000, #ffc107)",
         zIndex: "2",
-        transform: "skew(2deg, 2deg)"
+        transform: "skew(2deg, 2deg)",
+        marginTop: "50px"
     },
     searchInput: {
-        marginBottom: "10px"
+        marginBottom: "10px",
+        zIndex: "11",
+        border: "1px solid #303f9f"
     },
     userCard: {
         borderRadius: "20px",
@@ -210,6 +224,19 @@ const myStyles = makeStyles(() => ({
         borderRadius: "20px"
     },
     buttons: {
-        margin: "0 5px 0 5px"
+        margin: "0 5px 0 5px",
+        zIndex: "11"
+    },
+    searchContainer: {
+        background: "black",
+        position: "absolute",
+        top: "120px",
+        zIndex: "11",
+        width: "70%",
+        height: "130px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
     }
 }));

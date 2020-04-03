@@ -5,6 +5,7 @@ import axios from "../axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class Login extends React.Component {
     constructor(props) {
@@ -47,7 +48,14 @@ class Login extends React.Component {
         const { email, password, loading } = this.state;
 
         if (loading) {
-            return <div>Loading...</div>;
+            return (
+                <div>
+                    <CircularProgress
+                        className={classes.loading}
+                        color="secondary"
+                    />
+                </div>
+            );
         }
         return (
             <div
@@ -63,20 +71,30 @@ class Login extends React.Component {
                     overflow: "hidden"
                 }}
             >
-                <h1 className={classes.welcome}>
+                <h1 id="welcomeLogin" className={classes.welcome}>
                     <div className="test2"></div>
                     WELCOME
                     <div className="test3"></div>
                 </h1>
                 <div className={classes.container}>
-                    <div className={classes.backgroundForm}></div>
-                    <img className={classes.logo} src="logo.jpg"></img>
+                    <div
+                        id="backgroundFormLogin"
+                        className={classes.backgroundForm}
+                    ></div>
+                    <img
+                        id="loginLogo"
+                        className={classes.logo}
+                        src="logo.jpg"
+                    ></img>
                     {this.state.error && (
                         <div style={{ color: "red", fontSize: "20px" }}>
                             Something went wrong! Please try again!
                         </div>
                     )}
-                    <div className={classes.formContainer}>
+                    <div
+                        id="formContainerLogin"
+                        className={classes.formContainer}
+                    >
                         <h1 style={{ color: "white" }}>Login</h1>
                         <TextField
                             onChange={e =>
@@ -87,6 +105,7 @@ class Login extends React.Component {
                             placeholder="Email"
                             required
                             id="standard-required"
+                            InputProps={{ className: classes.input }}
                         />
                         <TextField
                             onChange={e =>
@@ -97,6 +116,7 @@ class Login extends React.Component {
                             placeholder="Password"
                             required
                             id="standard-required"
+                            InputProps={{ className: classes.input }}
                         />
                         <Button
                             variant="contained"
@@ -150,7 +170,9 @@ const styles = theme => ({
         top: "250px",
         opacity: "0.7",
         zIndex: "1",
-        borderRadius: "20px"
+        borderRadius: "20px",
+        boxShadow: "1px 1px 15px",
+        color: "white"
     },
     formContainer: {
         position: "absolute",
@@ -163,6 +185,16 @@ const styles = theme => ({
     linkRegister: {
         textDecoration: "none",
         color: "#303f9f"
+    },
+    input: {
+        color: "white"
+    },
+    loading: {
+        width: "300px",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "calc(-50%, -50%)"
     }
 });
 

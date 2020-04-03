@@ -47,12 +47,16 @@ class BioEditor extends React.Component {
                 <>
                     <div className={classes.TextFieldContainer}>
                         <TextField
+                            id="textFieldBio"
                             className={classes.textField}
                             name="bio"
                             onChange={e => this.handleChangeBio(e)}
                             defaultValue={this.props.bio}
+                            label="Add Bio Here"
+                            InputProps={{ className: classes.input }}
                         />
                         <Button
+                            id="saveBioButton"
                             className={classes.buttonSave}
                             variant="contained"
                             color="primary"
@@ -67,7 +71,10 @@ class BioEditor extends React.Component {
             return (
                 <>
                     <div className={classes.container}>
-                        <div className={classes.textContainer}>
+                        <div
+                            id="textBioContainer"
+                            className={classes.textContainer}
+                        >
                             {this.props.bio === "" ? (
                                 <h3 className="bioText">No Bio added yet</h3>
                             ) : (
@@ -75,6 +82,7 @@ class BioEditor extends React.Component {
                             )}
                         </div>
                         <Button
+                            id="addBioButton"
                             className={classes.buttonAdd}
                             variant="contained"
                             color="primary"
@@ -131,6 +139,9 @@ const styles = theme => ({
         position: "absolute",
         bottom: "10px",
         width: "60px"
+    },
+    input: {
+        color: "black"
     }
 });
 

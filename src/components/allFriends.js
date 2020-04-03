@@ -17,14 +17,17 @@ export default function AllFriends({ friends }) {
     return (
         <div>
             <div>
-                <div className={classes.container}>
-                    <h2 className={classes.title}>
+                <div id="allFriendsContainer" className={classes.container}>
+                    <h2 id="allFriendsTitle" className={classes.title}>
                         These people are currently your friends
                     </h2>
 
-                    <div className={classes.friendCardScrollBackground}></div>
+                    <div
+                        id="friendCardScrollBackground"
+                        className={classes.friendCardScrollBackground}
+                    ></div>
 
-                    <div className={classes.friendsScroll}>
+                    <div id="friendsScroll" className={classes.friendsScroll}>
                         {" "}
                         <div>
                             {friends.length === 0 && (

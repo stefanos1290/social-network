@@ -25,11 +25,14 @@ class Uploader extends React.Component {
             <div>
                 <div className={classes.container}></div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div className={classes.modal}>
+                    <div id="uploadModal" className={classes.modal}>
                         <h2 className={classes.title}>
                             Want to change your image?
                         </h2>
-                        <div className={classes.buttonsContainer}>
+                        <div
+                            id="buttonsContainerUploader"
+                            className={classes.buttonsContainer}
+                        >
                             <input
                                 onChange={this.changeImageHandler}
                                 className="chooseFile"

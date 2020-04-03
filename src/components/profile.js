@@ -11,12 +11,12 @@ export function ProfilePic({ firstName, lastName, imageUrl }) {
         a = imageUrl;
     }
     return (
-        <div className={classes.container}>
+        <div id="profileConainer" className={classes.container}>
             <div>
-                <img className={classes.images} src={a} />
+                <img id="imageProfile" className={classes.images} src={a} />
             </div>
             <div>
-                <h1 className={classes.name}>
+                <h1 id="nameProfile" className={classes.name}>
                     {firstName} {lastName}
                 </h1>
             </div>

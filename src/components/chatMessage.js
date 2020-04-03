@@ -15,12 +15,18 @@ export default function ChatMessage(props) {
         <div>
             <div className={classes.container}>
                 <div className={classes.messageBackground}></div>
-                <img className={classes.image} src={`${props.image}`} />
+                <img
+                    id="imageChat"
+                    className={classes.image}
+                    src={`${props.image}`}
+                />
                 <div className={classes.lettersContainer}>
                     <span className={classes.name}>
                         {props.firstname} {props.lastname}{" "}
                     </span>
-                    <span className={classes.date}>{DATE}</span>
+                    <span id="dateChat" className={classes.date}>
+                        {DATE}
+                    </span>
                     <p className={classes.massage}>{props.msg}</p>
                 </div>
             </div>

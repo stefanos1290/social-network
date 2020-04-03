@@ -3,16 +3,23 @@ import axios from "../axios";
 import Uploader from "./uploader";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import DehazeIcon from "@material-ui/icons/Dehaze";
+import Menu from "@material-ui/core/Menu";
+import Fade from "@material-ui/core/Fade";
+import MenuItem from "@material-ui/core/MenuItem";
 
 class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uploaderIsVisible: false
+            uploaderIsVisible: false,
+            setAnchorEl: null
         };
         this.logout = this.logout.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.replacePicture = this.replacePicture.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     componentDidMount() {
@@ -44,24 +51,75 @@ class Header extends React.Component {
         });
     }
 
+    handleClick(e) {
+        this.setState({
+            setAnchorEl: e.currentTarget
+        });
+    }
+    handleClose() {
+        this.setState({
+            setAnchorEl: null
+        });
+    }
+
     render() {
+        const open = Boolean(this.state.setAnchorEl);
         return (
             <div className="headerContainer">
                 <div className="logout" onClick={this.logout}>
                     LOG OUT
                 </div>
                 <div>
+                    <div id="menuIcon">
+                        <DehazeIcon
+                            style={{ fill: "white" }}
+                            aria-controls="fade-menu"
+                            aria-haspopup="true"
+                            onClick={this.handleClick}
+                        ></DehazeIcon>
+                        <Menu
+                            id="fade-menu"
+                            anchorEl={this.state.setAnchorEl}
+                            keepMounted
+                            open={open}
+                            TransitionComponent={Fade}
+                            onClose={this.handleClose}
+                        >
+                            {this.props.onlineUsers > 1 && (
+                                <MenuItem>
+                                    <Link id="menuItems" to="/onlineusers">
+                                        see {this.props.onlineUsers} Users
+                                        Online
+                                    </Link>
+                                </MenuItem>
+                            )}
+                            <MenuItem>
+                                <Link id="menuItems" to="/">
+                                    PROFILE
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
+                                {" "}
+                                <Link id="menuItems" to="/chat">
+                                    CHAT
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
+                                <Link id="menuItems" to="/users">
+                                    FIND PEOPLE
+                                </Link>
+                            </MenuItem>
+                            <MenuItem>
+                                <Link id="menuItems" to="/friends">
+                                    FRIENDS
+                                </Link>
+                            </MenuItem>
+                        </Menu>
+                    </div>
                     <div className="linksContainer">
                         {this.props.onlineUsers > 1 && (
-                            <Link
-                                style={{
-                                    fontFamily: "monospace",
-                                    textDecoration: "none",
-                                    marginRight: "15px"
-                                }}
-                                to="/onlineusers"
-                            >
-                                {this.props.onlineUsers} Users Online
+                            <Link className="seeOnlineLink" to="/onlineusers">
+                                see {this.props.onlineUsers} Users Online
                             </Link>
                         )}
                         <Link className="profileLink" to="/">

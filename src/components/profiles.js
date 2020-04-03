@@ -8,7 +8,10 @@ export function Profile(props) {
     return (
         <div className={classes.container}>
             <div className={classes.profileCard}>
-                <div className={classes.background}></div>
+                <div
+                    id="profileBackdround"
+                    className={classes.background}
+                ></div>
                 <ProfilePic
                     className={classes.profileComponent}
                     firstName={props.firstName}

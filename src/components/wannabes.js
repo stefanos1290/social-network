@@ -25,12 +25,15 @@ export default function Wannabes() {
 
     return (
         <div>
-            <div className={classes.wannabesContainer}>
-                <h2 className={classes.title}>
+            <div id="wannabesContainer" className={classes.wannabesContainer}>
+                <h2 id="titleWannabes" className={classes.title}>
                     These people want to be your friends
                 </h2>
-                <div className={classes.wannabesScrollBackground}></div>
-                <div className={classes.wannabeScroll}>
+                <div
+                    id="wannabesScrollBackground"
+                    className={classes.wannabesScrollBackground}
+                ></div>
+                <div id="wannabeScroll" className={classes.wannabeScroll}>
                     {wannabes.length > 0 &&
                         wannabes.map(wannabe => (
                             <div key={wannabe.id}>

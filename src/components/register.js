@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class Registration extends Component {
     constructor(props) {
@@ -51,12 +52,19 @@ class Registration extends Component {
         const { firstName, lastName, email, password, loading } = this.state;
 
         if (loading) {
-            return <div>Loading...</div>;
+            return (
+                <div>
+                    <CircularProgress
+                        className={classes.loading}
+                        color="secondary"
+                    />
+                </div>
+            );
         }
 
         return (
             <div className="register">
-                <h1 className={classes.welcome}>
+                <h1 id="welcomeRegister" className={classes.welcome}>
                     <div className="test2"></div>
                     WELCOME
                     <div className="test3"></div>
@@ -68,15 +76,30 @@ class Registration extends Component {
                         width: "200px"
                     }}
                 >
-                    <img className={classes.logo} src="logo.jpg"></img>
-                    <div className={classes.backgroundForm}></div>
+                    <img
+                        id="logoRegister"
+                        className={classes.logo}
+                        src="logo.jpg"
+                    ></img>
+                    <div
+                        id="backgroundFormRegister"
+                        className={classes.backgroundForm}
+                    ></div>
                     {this.state.error && (
                         <div className={classes.error}>
                             Something went wrong! Please try again!
                         </div>
                     )}
-                    <div className={classes.formRegisterContainer}>
-                        <h1 className={classes.registerText}>Register</h1>{" "}
+                    <div
+                        id="formContainer"
+                        className={classes.formRegisterContainer}
+                    >
+                        <h1
+                            id="registerRegister"
+                            className={classes.registerText}
+                        >
+                            Register
+                        </h1>{" "}
                         <TextField
                             onChange={e =>
                                 this.setState({ firstName: e.target.value })
@@ -85,7 +108,8 @@ class Registration extends Component {
                             type="text"
                             placeholder="First Name"
                             required
-                            id="standard-required"
+                            id="firstName"
+                            InputProps={{ className: classes.input }}
                         />
                         <TextField
                             onChange={e =>
@@ -96,6 +120,7 @@ class Registration extends Component {
                             placeholder="Last Name"
                             required
                             id="standard-required"
+                            InputProps={{ className: classes.input }}
                         />
                         <TextField
                             onChange={e =>
@@ -106,6 +131,7 @@ class Registration extends Component {
                             placeholder="Email"
                             required
                             id="standard-required"
+                            InputProps={{ className: classes.input }}
                         />
                         <TextField
                             onChange={e =>
@@ -116,8 +142,10 @@ class Registration extends Component {
                             placeholder="Password"
                             required
                             id="standard-required"
+                            InputProps={{ className: classes.input }}
                         />
                         <Button
+                            id="buttonToRegister"
                             variant="contained"
                             color="primary"
                             style={{ margin: "10px" }}
@@ -138,7 +166,7 @@ class Registration extends Component {
     }
 }
 
-const styles = thene => ({
+const styles = theme => ({
     welcome: {
         zIndex: "1",
         position: "absolute",
@@ -162,7 +190,9 @@ const styles = thene => ({
         top: "100px",
         backgroundColor: "black",
         borderRadius: "20px",
-        opacity: "0.7"
+        opacity: "0.7",
+        boxShadow: "1px 1px 15px",
+        color: "white"
     },
     error: {
         color: "red",
@@ -179,7 +209,8 @@ const styles = thene => ({
         top: "170px"
     },
     registerText: {
-        color: "white"
+        color: "white",
+        width: "140px"
     },
     loginMassage: {
         color: "white"
@@ -187,6 +218,16 @@ const styles = thene => ({
     linkLogin: {
         textDecoration: "none",
         color: "#303f9f"
+    },
+    input: {
+        color: "white"
+    },
+    loading: {
+        width: "300px",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "calc(-50%, -50%)"
     }
 });
 

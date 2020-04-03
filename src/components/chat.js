@@ -40,7 +40,7 @@ export function Chat() {
                     <div className="chat3"></div>
                 </h1>
                 <div ref={elemRef} className={classes.newScrolling}>
-                    <div className={classes.chatScroll}>
+                    <div id="chatScroll" className={classes.chatScroll}>
                         <div className={classes.chatScrollBackground}>
                             {chatMessages.map(item => (
                                 <div key={`chat_id_${item.id}`}>
