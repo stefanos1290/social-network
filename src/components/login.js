@@ -14,7 +14,7 @@ class Login extends React.Component {
             email: "",
             password: "",
             loading: false,
-            error: false
+            error: false,
         };
     }
 
@@ -24,14 +24,14 @@ class Login extends React.Component {
         axios
             .post("/login", {
                 email: email,
-                password: password
+                password: password,
             })
             .then(({ data }) => {
                 if (data.success) {
                     location.replace("/");
                 } else {
                     this.setState({
-                        error: true
+                        error: true,
                     });
                 }
             })
@@ -59,6 +59,7 @@ class Login extends React.Component {
         }
         return (
             <div
+                id="loginContainer"
                 className="login"
                 style={{
                     display: "flex",
@@ -68,7 +69,7 @@ class Login extends React.Component {
                     textAlign: "center",
                     width: "100vw",
                     height: "100vh",
-                    overflow: "hidden"
+                    overflow: "hidden",
                 }}
             >
                 <h1 id="welcomeLogin" className={classes.welcome}>
@@ -95,30 +96,38 @@ class Login extends React.Component {
                         id="formContainerLogin"
                         className={classes.formContainer}
                     >
-                        <h1 style={{ color: "white" }}>Login</h1>
+                        <h1 id="welcomeMediaLogin">
+                            <div className="test2"></div>
+                            WELCOME
+                            <div className="test3"></div>
+                        </h1>
+                        <h1 id="loginTitle" style={{ color: "white" }}>
+                            Login
+                        </h1>
                         <TextField
-                            onChange={e =>
+                            onChange={(e) =>
                                 this.setState({ email: e.target.value })
                             }
                             value={email}
                             type="email"
                             placeholder="Email"
                             required
-                            id="standard-required"
+                            id="emailFieldLogin"
                             InputProps={{ className: classes.input }}
                         />
                         <TextField
-                            onChange={e =>
+                            onChange={(e) =>
                                 this.setState({ password: e.target.value })
                             }
                             value={password}
                             type="password"
                             placeholder="Password"
                             required
-                            id="standard-required"
+                            id="passwordFieldLogin"
                             InputProps={{ className: classes.input }}
                         />
                         <Button
+                            id="loginButton"
                             variant="contained"
                             color="primary"
                             style={{ margin: "10px" }}
@@ -127,7 +136,11 @@ class Login extends React.Component {
                             Login
                         </Button>
                         <div>
-                            <Link className={classes.linkRegister} to="/">
+                            <Link
+                                id="linkToRegister"
+                                className={classes.linkRegister}
+                                to="/"
+                            >
                                 REGISTER
                             </Link>
                         </div>
@@ -138,13 +151,13 @@ class Login extends React.Component {
     }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
     welcome: {
         position: "absolute",
         color: "white",
         zIndex: "1",
         top: "124px",
-        left: "144px"
+        left: "144px",
     },
     logo: {
         borderRadius: "100%",
@@ -153,13 +166,13 @@ const styles = theme => ({
         left: "-100px",
         top: "-100px",
         display: "block",
-        overflowX: "hidden"
+        overflowX: "hidden",
     },
     container: {
-        display: "flex",
-        flexDirection: "column",
-        width: "200px",
-        overflow: "hidden"
+        // display: "flex",
+        // flexDirection: "column",
+        // width: "200px",
+        // overflow: "hidden",
     },
     backgroundForm: {
         width: "350px",
@@ -172,7 +185,7 @@ const styles = theme => ({
         zIndex: "1",
         borderRadius: "20px",
         boxShadow: "1px 1px 15px",
-        color: "white"
+        color: "white",
     },
     formContainer: {
         position: "absolute",
@@ -180,22 +193,22 @@ const styles = theme => ({
         top: "280px",
         display: "flex",
         flexDirection: "column",
-        zIndex: "1"
+        zIndex: "1",
     },
     linkRegister: {
         textDecoration: "none",
-        color: "#303f9f"
+        color: "#303f9f",
     },
     input: {
-        color: "white"
+        color: "white",
     },
     loading: {
         width: "300px",
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: "calc(-50%, -50%)"
-    }
+        transform: "calc(-50%, -50%)",
+    },
 });
 
 export default withStyles(styles)(Login);

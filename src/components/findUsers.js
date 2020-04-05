@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
-const User = props => {
+const User = (props) => {
     const classes = stylesUsers();
 
     return (
@@ -56,7 +56,7 @@ export default () => {
                 style={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}
             >
                 <div
@@ -68,9 +68,12 @@ export default () => {
                         <TextField
                             className={classes.searchInput}
                             value={value}
-                            onChange={e => setValue(e.target.value)}
+                            onChange={(e) => setValue(e.target.value)}
+                            placeholder="Search...."
                             label="Search...."
                             InputProps={{ className: classes.input }}
+                            InputLabelProps={{ className: classes.inputLabel }}
+                            variant="outlined"
                         />
                     </div>
                     <div>
@@ -103,7 +106,7 @@ export default () => {
                     {user
                         .sort()
                         .slice(0, 10)
-                        .map(user => {
+                        .map((user) => {
                             return (
                                 <div
                                     id="card"
@@ -128,30 +131,27 @@ const stylesUsers = makeStyles(() => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: "220px"
+        width: "220px",
     },
     imageName: {
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
     },
     name: {
         fontSize: "25px",
         textAlign: "center",
         margin: "17px",
-        color: "white"
+        color: "white",
     },
     image: {
         height: "100px",
         borderRadius: "20px",
-        alignItems: "center"
+        alignItems: "center",
     },
     bio: {
         color: "white",
-        padding: "10px"
+        padding: "10px",
     },
-    input: {
-        color: "white"
-    }
 }));
 
 const myStyles = makeStyles(() => ({
@@ -159,7 +159,7 @@ const myStyles = makeStyles(() => ({
         width: "100vw",
         height: "100vh",
         background: "black",
-        display: "grid"
+        display: "grid",
     },
     textfieldContainer: {
         display: "flex",
@@ -170,7 +170,7 @@ const myStyles = makeStyles(() => ({
         marginTop: "40px",
         height: "118px",
         alignItems: "center",
-        zIndex: "4"
+        zIndex: "4",
     },
     usersContainerScroll: {
         position: "absolute",
@@ -184,14 +184,14 @@ const myStyles = makeStyles(() => ({
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "space-around",
-        marginTop: "50px"
+        marginTop: "50px",
     },
     searchFor: {
-        color: "white"
+        color: "white",
     },
     error: {
         fontSize: "100px",
-        color: "red"
+        color: "red",
     },
     backgroundScroll: {
         position: "absolute",
@@ -202,17 +202,22 @@ const myStyles = makeStyles(() => ({
         background: "linear-gradient(315deg, #ff0000, #ffc107)",
         zIndex: "2",
         transform: "skew(2deg, 2deg)",
-        marginTop: "50px"
+        marginTop: "50px",
     },
     searchInput: {
         marginBottom: "10px",
         zIndex: "11",
-        border: "1px solid #303f9f"
+    },
+    input: {
+        color: "white",
+    },
+    inputLabel: {
+        color: "#303f9f",
     },
     userCard: {
         borderRadius: "20px",
         margin: "50px",
-        position: "relative"
+        position: "relative",
     },
     userCardBackground: {
         position: "absolute",
@@ -221,11 +226,11 @@ const myStyles = makeStyles(() => ({
         background: "linear-gradient(315deg, #ff0000, #ffc107)",
         zIndex: "-1000",
         opacity: "0.5",
-        borderRadius: "20px"
+        borderRadius: "20px",
     },
     buttons: {
         margin: "0 5px 0 5px",
-        zIndex: "11"
+        zIndex: "11",
     },
     searchContainer: {
         background: "black",
@@ -237,6 +242,6 @@ const myStyles = makeStyles(() => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center"
-    }
+        justifyContent: "center",
+    },
 }));

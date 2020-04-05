@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export function Profile(props) {
     const classes = myStyles();
     return (
-        <div className={classes.container}>
+        <div id="" className={classes.container}>
             <div className={classes.profileCard}>
                 <div
                     id="profileBackdround"
@@ -32,7 +32,8 @@ const myStyles = makeStyles(() => ({
     container: {
         width: "100vw",
         height: "100vh",
-        background: "black"
+        background: "black",
+        overflow: "hidden",
     },
     background: {
         position: "relative",
@@ -43,7 +44,7 @@ const myStyles = makeStyles(() => ({
         width: "100%",
         height: "100%",
         zIndex: "-10",
-        borderRadius: "20px"
+        borderRadius: "20px",
     },
     profileCard: {
         position: "relative",
@@ -56,6 +57,6 @@ const myStyles = makeStyles(() => ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center"
-    }
+        alignItems: "center",
+    },
 }));

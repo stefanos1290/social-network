@@ -15,7 +15,7 @@ class Registration extends Component {
             email: "",
             password: "",
             loading: false,
-            error: false
+            error: false,
         };
     }
 
@@ -27,7 +27,7 @@ class Registration extends Component {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
-                password: password
+                password: password,
             })
             .then(({ data }) => {
                 console.log(data);
@@ -35,7 +35,7 @@ class Registration extends Component {
                     location.replace("/");
                 } else {
                     this.setState({
-                        error: true
+                        error: true,
                     });
                 }
             })
@@ -73,7 +73,7 @@ class Registration extends Component {
                     style={{
                         display: "flex",
                         flexDirection: "column",
-                        width: "200px"
+                        width: "200px",
                     }}
                 >
                     <img
@@ -86,7 +86,10 @@ class Registration extends Component {
                         className={classes.backgroundForm}
                     ></div>
                     {this.state.error && (
-                        <div className={classes.error}>
+                        <div
+                            id="registerErrorMessage"
+                            className={classes.error}
+                        >
                             Something went wrong! Please try again!
                         </div>
                     )}
@@ -94,6 +97,11 @@ class Registration extends Component {
                         id="formContainer"
                         className={classes.formRegisterContainer}
                     >
+                        <h1 id="welcomeRegisterMedia">
+                            <div className="test2"></div>
+                            WELCOME
+                            <div className="test3"></div>
+                        </h1>
                         <h1
                             id="registerRegister"
                             className={classes.registerText}
@@ -101,7 +109,7 @@ class Registration extends Component {
                             Register
                         </h1>{" "}
                         <TextField
-                            onChange={e =>
+                            onChange={(e) =>
                                 this.setState({ firstName: e.target.value })
                             }
                             value={firstName}
@@ -112,7 +120,7 @@ class Registration extends Component {
                             InputProps={{ className: classes.input }}
                         />
                         <TextField
-                            onChange={e =>
+                            onChange={(e) =>
                                 this.setState({ lastName: e.target.value })
                             }
                             value={lastName}
@@ -123,7 +131,7 @@ class Registration extends Component {
                             InputProps={{ className: classes.input }}
                         />
                         <TextField
-                            onChange={e =>
+                            onChange={(e) =>
                                 this.setState({ email: e.target.value })
                             }
                             value={email}
@@ -134,7 +142,7 @@ class Registration extends Component {
                             InputProps={{ className: classes.input }}
                         />
                         <TextField
-                            onChange={e =>
+                            onChange={(e) =>
                                 this.setState({ password: e.target.value })
                             }
                             value={password}
@@ -153,7 +161,7 @@ class Registration extends Component {
                         >
                             Register
                         </Button>
-                        <div className={classes.loginMassage}>
+                        <div id="loginMessage" className={classes.loginMassage}>
                             Already a member?{" "}
                             <Link className={classes.linkLogin} to="/login">
                                 LOG IN
@@ -166,13 +174,13 @@ class Registration extends Component {
     }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
     welcome: {
         zIndex: "1",
         position: "absolute",
         top: "100px",
         left: "166px",
-        color: "white"
+        color: "white",
     },
     logo: {
         borderRadius: "100%",
@@ -180,7 +188,7 @@ const styles = theme => ({
         width: "700px",
         left: "-80px",
         top: "-120px",
-        position: "absolute"
+        position: "absolute",
     },
     backgroundForm: {
         width: "400px",
@@ -192,43 +200,43 @@ const styles = theme => ({
         borderRadius: "20px",
         opacity: "0.7",
         boxShadow: "1px 1px 15px",
-        color: "white"
+        color: "white",
     },
     error: {
         color: "red",
         fontSize: "20px",
         position: "relative",
         right: "-315px",
-        top: "120px"
+        top: "120px",
     },
     formRegisterContainer: {
         position: "absolute",
         display: "flex",
         flexDirection: "column",
         right: "240px",
-        top: "170px"
+        top: "170px",
     },
     registerText: {
         color: "white",
-        width: "140px"
+        width: "140px",
     },
     loginMassage: {
-        color: "white"
+        color: "white",
     },
     linkLogin: {
         textDecoration: "none",
-        color: "#303f9f"
+        color: "#303f9f",
     },
     input: {
-        color: "white"
+        color: "white",
     },
     loading: {
         width: "300px",
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: "calc(-50%, -50%)"
-    }
+        transform: "calc(-50%, -50%)",
+    },
 });
 
 export default withStyles(styles)(Registration);
