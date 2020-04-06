@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 export function Profile(props) {
     const classes = myStyles();
     return (
-        <div id="" className={classes.container}>
-            <div className={classes.profileCard}>
+        <div id="profilesComponentContainer" className={classes.container}>
+            <div id="profileCardContainer" className={classes.profileCard}>
                 <div
                     id="profileBackdround"
                     className={classes.background}
@@ -30,33 +30,33 @@ export function Profile(props) {
 }
 const myStyles = makeStyles(() => ({
     container: {
-        width: "100vw",
-        height: "100vh",
-        background: "black",
-        overflow: "hidden",
+        // width: "100vw",
+        // height: "100vh",
+        // background: "black",
+        // overflow: "hidden",
     },
     background: {
-        position: "relative",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        background: "linear-gradient(315deg,#e91e65, #5d02ff)",
-        width: "100%",
-        height: "100%",
-        zIndex: "-10",
-        borderRadius: "20px",
+        // position: "relative",
+        // top: "50%",
+        // left: "50%",
+        // transform: "translate(-50%, -50%)",
+        // background: "linear-gradient(315deg,#e91e65, #5d02ff)",
+        // width: "100%",
+        // height: "100%",
+        // zIndex: "-10",
+        // borderRadius: "20px",
     },
     profileCard: {
-        position: "relative",
-        top: "50%",
-        left: "50%",
-        zIndex: "1",
-        transform: "translate(-50%, -50%)",
-        width: "50%",
-        height: "70%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        //     position: "relative",
+        //     top: "50%",
+        //     left: "50%",
+        //     zIndex: "1",
+        //     transform: "translate(-50%, -50%)",
+        //     width: "50%",
+        //     height: "70%",
+        //     display: "flex",
+        //     flexDirection: "column",
+        //     justifyContent: "center",
+        //     alignItems: "center",
     },
 }));

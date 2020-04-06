@@ -11,7 +11,11 @@ export function ProfilePic({ firstName, lastName, imageUrl }) {
         a = imageUrl;
     }
     return (
-        <div id="profileConainer" className={classes.container}>
+        <div
+            style={{ visibility: "visible" }}
+            id="profileConainer"
+            className={classes.container}
+        >
             <div>
                 <img id="imageProfile" className={classes.images} src={a} />
             </div>
@@ -26,21 +30,21 @@ export function ProfilePic({ firstName, lastName, imageUrl }) {
 
 const myStyles = makeStyles(() => ({
     container: {
-        display: "flex",
-        justifyContent: "center"
+        // display: "flex",
+        // justifyContent: "center"
     },
     images: {
-        width: "100px",
-        height: "100px",
-        borderRadius: "100%",
-        position: "absolute",
-        top: "10px",
-        left: "10px"
+        // width: "100px",
+        // height: "100px",
+        // borderRadius: "100%",
+        // position: "absolute",
+        // top: "10px",
+        // left: "10px"
     },
     name: {
-        color: "black",
-        position: "absolute",
-        top: "40px",
-        right: "70px"
-    }
+        // color: "black",
+        // position: "absolute",
+        // top: "40px",
+        // right: "70px"
+    },
 }));

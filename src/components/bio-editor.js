@@ -10,7 +10,7 @@ class BioEditor extends React.Component {
         this.state = {
             editingMode: false,
             buttonText: "Edit Bio",
-            bio: ""
+            bio: "",
         };
         this.toggleTextArea = this.toggleTextArea.bind(this);
         this.setBio = this.setBio.bind(this);
@@ -18,7 +18,7 @@ class BioEditor extends React.Component {
 
     toggleTextArea() {
         this.setState({
-            editingMode: !this.state.editingMode
+            editingMode: !this.state.editingMode,
         });
     }
     setBio(e) {
@@ -34,7 +34,7 @@ class BioEditor extends React.Component {
 
     handleChangeBio(e) {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     }
 
@@ -44,33 +44,34 @@ class BioEditor extends React.Component {
         this.props.bio ? (buttonText = "Edit bio") : (buttonText = "Add bio");
         if (this.state.editingMode) {
             return (
-                <>
-                    <div className={classes.TextFieldContainer}>
+                <div>
+                    <div id="textFieldBio">
                         <TextField
-                            id="textFieldBio"
-                            className={classes.textField}
                             name="bio"
-                            onChange={e => this.handleChangeBio(e)}
+                            onChange={(e) => this.handleChangeBio(e)}
                             defaultValue={this.props.bio}
                             label="Add Bio Here"
                             InputProps={{ className: classes.input }}
                         />
-                        <Button
-                            id="saveBioButton"
-                            className={classes.buttonSave}
-                            variant="contained"
-                            color="primary"
-                            onClick={this.setBio}
-                        >
-                            Save
-                        </Button>
                     </div>
-                </>
+                    <Button
+                        id="saveBioButton"
+                        className={classes.buttonSave}
+                        variant="contained"
+                        color="primary"
+                        onClick={this.setBio}
+                    >
+                        Save
+                    </Button>
+                </div>
             );
         } else {
             return (
-                <>
-                    <div className={classes.container}>
+                <div>
+                    <div
+                        style={{ visibility: "visible" }}
+                        className={classes.container}
+                    >
                         <div
                             id="textBioContainer"
                             className={classes.textContainer}
@@ -91,58 +92,58 @@ class BioEditor extends React.Component {
                             {buttonText}
                         </Button>
                     </div>
-                </>
+                </div>
             );
         }
     }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
     TextFieldContainer: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        position: "apsolute",
-        bottom: "0px"
+        // display: "flex",
+        // flexDirection: "column",
+        // alignItems: "center",
+        // position: "apsolute",
+        // bottom: "0px"
     },
     textContainer: {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -20%)",
-        width: "80%",
-        height: "100px",
-        background: "black",
-        display: "flex",
-        padding: "10px",
-        display: "block",
-        overflowY: "scroll",
-        borderRadius: "20px"
+        // position: "absolute",
+        // top: "50%",
+        // left: "50%",
+        // transform: "translate(-50%, -20%)",
+        // width: "80%",
+        // height: "100px",
+        // background: "black",
+        // display: "flex",
+        // padding: "10px",
+        // display: "block",
+        // overflowY: "scroll",
+        // borderRadius: "20px"
     },
     textField: {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)"
+        // position: "absolute",
+        // top: "50%",
+        // left: "50%",
+        // transform: "translate(-50%, -50%)",
     },
     container: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column"
+        // display: "flex",
+        // justifyContent: "center",
+        // alignItems: "center",
+        // flexDirection: "column"
     },
     buttonAdd: {
-        position: "absolute",
-        bottom: "10px"
+        // position: "absolute",
+        // bottom: "10px"
     },
     buttonSave: {
-        position: "absolute",
-        bottom: "10px",
-        width: "60px"
+        // position: "absolute",
+        // bottom: "10px",
+        // width: "60px"
     },
     input: {
-        color: "black"
-    }
+        // color: "black"
+    },
 });
 
 export default withStyles(styles)(BioEditor);
