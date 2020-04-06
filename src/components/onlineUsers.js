@@ -14,48 +14,29 @@ export default function onlineUsers() {
     }, []);
 
     return (
-        <div>
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                }}
-            >
-                {onlineUserData.map(function (item) {
-                    return (
-                        <div
-                            key={item.id}
-                            className="onlineUsersCard"
-                            style={{
-                                border: "1px solid black",
-                                borderRadius: "30px",
-                                width: "250px",
-                                alignItems: "center",
-                                backgroundColor: "#3b8c9e",
-                            }}
-                        >
-                            <h3
-                                style={{
-                                    margin: "0",
-                                    marginLeft: "60px",
-                                }}
-                            >
-                                {item.firstname} {item.lastname}
-                            </h3>
-                            <img
-                                style={{
-                                    width: "200px",
-                                    borderRadius: "30px",
-                                    alignItems: "center",
-                                    marginLeft: "25px",
-                                }}
-                                src={item.image}
-                            />
-                            <h3>{item.bio}</h3>
+        <div className="onlineUsersComponentContainer">
+            {onlineUserData.map(function (item) {
+                return (
+                    <div key={item.id} className="onlineUserCard">
+                        <h3 className="onlineUserName">
+                            {item.firstname} {item.lastname}
+                        </h3>
+                        <img
+                            className="onlineUserProfilePic"
+                            src={item.image}
+                        />
+                        <div className="onlineUserBioContainer">
+                            {item.bio === "" ? (
+                                <h3 className="onlineUserNoBioMessage">
+                                    No Bio added yet
+                                </h3>
+                            ) : (
+                                <h3 className="onlineUserBio">{item.bio}</h3>
+                            )}
                         </div>
-                    );
-                })}
-            </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios";
 import { Friendshipbutton } from "./friendship";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-export default props => {
+export default (props) => {
     const [userData, setUserData] = useState({
         firstname: "",
         lastname: "",
         imageUrl: "",
         bio: "",
-        userId: ""
+        userId: "",
     });
 
     const [userDataLoaded, setUserDataLoaded] = useState(false);
@@ -27,7 +28,7 @@ export default props => {
                         lastname: data.lastname,
                         imageUrl: data.image,
                         bio: data.bio,
-                        userId: data.meId
+                        userId: data.meId,
                     });
                     setUserDataLoaded(true);
                 }
@@ -37,20 +38,36 @@ export default props => {
     }, []);
 
     if (!userDataLoaded) {
-        return <div>Loading..</div>;
+        return (
+            <div>
+                <CircularProgress />
+            </div>
+        );
     }
 
     if (!userData.firstname) {
         return <h1>The user does not exist get over it</h1>;
     }
     return (
-        <div>
-            <h1>
-                {userData.firstname} {userData.lastname}
-            </h1>
-            <img src={`/${userData.imageUrl}`} />
-            <p>{userData.bio}</p>
-            <Friendshipbutton otherId={props.match.params.id} />
+        <div className="otherUserComponentContainer">
+            <div className="otherUserCard">
+                <h1 className="otherUserName">
+                    {userData.firstname} {userData.lastname}
+                </h1>
+                <img
+                    className="otherUserProfilePic"
+                    src={`/${userData.imageUrl}`}
+                />
+                {userData.bio === "" ? (
+                    <p className="otherUserNoBioMessage">No Bio added yet</p>
+                ) : (
+                    <p className="otherUserBio">{userData.bio}</p>
+                )}
+                <Friendshipbutton
+                    className="otherUserFriendshipButton"
+                    otherId={props.match.params.id}
+                />
+            </div>
         </div>
     );
 };

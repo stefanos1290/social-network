@@ -210,11 +210,15 @@ const styles = (theme) => ({
         top: "120px",
     },
     formRegisterContainer: {
+        width: "400px",
+        height: "500px",
         position: "absolute",
         display: "flex",
         flexDirection: "column",
-        right: "240px",
-        top: "170px",
+        alignItems: "center",
+        justifyContent: "space-around",
+        right: "130px",
+        top: "100px",
     },
     registerText: {
         color: "white",

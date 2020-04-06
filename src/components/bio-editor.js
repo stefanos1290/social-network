@@ -98,52 +98,6 @@ class BioEditor extends React.Component {
     }
 }
 
-const styles = (theme) => ({
-    TextFieldContainer: {
-        // display: "flex",
-        // flexDirection: "column",
-        // alignItems: "center",
-        // position: "apsolute",
-        // bottom: "0px"
-    },
-    textContainer: {
-        // position: "absolute",
-        // top: "50%",
-        // left: "50%",
-        // transform: "translate(-50%, -20%)",
-        // width: "80%",
-        // height: "100px",
-        // background: "black",
-        // display: "flex",
-        // padding: "10px",
-        // display: "block",
-        // overflowY: "scroll",
-        // borderRadius: "20px"
-    },
-    textField: {
-        // position: "absolute",
-        // top: "50%",
-        // left: "50%",
-        // transform: "translate(-50%, -50%)",
-    },
-    container: {
-        // display: "flex",
-        // justifyContent: "center",
-        // alignItems: "center",
-        // flexDirection: "column"
-    },
-    buttonAdd: {
-        // position: "absolute",
-        // bottom: "10px"
-    },
-    buttonSave: {
-        // position: "absolute",
-        // bottom: "10px",
-        // width: "60px"
-    },
-    input: {
-        // color: "black"
-    },
-});
+const styles = (theme) => ({});
 
 export default withStyles(styles)(BioEditor);
