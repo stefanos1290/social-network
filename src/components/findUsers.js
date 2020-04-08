@@ -12,14 +12,22 @@ const User = (props) => {
     return (
         <div className={classes.usersContainer}>
             <div className={classes.imageName}>
-                <div className={classes.name}>
-                    {props.firstname} {props.lastname}
+                <div className={classes.nameContainer}>
+                    <div className={classes.name}>
+                        {props.firstname} {props.lastname}
+                    </div>
                 </div>
                 <Link style={{ alignSelf: "center" }} to={`/user/${props.id}`}>
-                    <img className={classes.image} src={props.image} />
+                    {props.image === null ? (
+                        <img className={classes.image} src="default.png"></img>
+                    ) : (
+                        <img className={classes.image} src={props.image} />
+                    )}
                 </Link>
             </div>
-            <p className={classes.bio}>{props.bio}</p>
+            <div className={classes.bioContainer}>
+                <p className={classes.bio}>{props.bio}</p>
+            </div>
         </div>
     );
 };
@@ -137,6 +145,10 @@ const stylesUsers = makeStyles(() => ({
         display: "flex",
         flexDirection: "column",
     },
+    nameContainer: {
+        height: "69px",
+        overflowY: "scroll",
+    },
     name: {
         fontSize: "25px",
         textAlign: "center",
@@ -147,6 +159,13 @@ const stylesUsers = makeStyles(() => ({
         height: "100px",
         borderRadius: "20px",
         alignItems: "center",
+        boxShadow: "1px 1px 15px white",
+    },
+    bioContainer: {
+        width: "100%",
+        height: "70px",
+        overflowY: "scroll",
+        paddingBottom: "30px",
     },
     bio: {
         color: "white",
@@ -217,12 +236,14 @@ const myStyles = makeStyles(() => ({
     userCard: {
         borderRadius: "20px",
         margin: "50px",
+        marginTop: "130px",
         position: "relative",
     },
     userCardBackground: {
         position: "absolute",
         width: "99%",
         height: "100%",
+        maxHeight: "350px",
         background: "linear-gradient(315deg, #ff0000, #ffc107)",
         zIndex: "-1000",
         opacity: "0.5",

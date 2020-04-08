@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios";
+import Button from "@material-ui/core/Button";
 
 export function Friendshipbutton({ otherId }) {
     const [buttonText, setButtonText] = useState("Make Friend Request");
@@ -21,15 +22,17 @@ export function Friendshipbutton({ otherId }) {
     function submit() {
         axios
             .post("/friendshipstatus/" + otherId)
-            .then(res => {
+            .then((res) => {
                 setButtonText(res.data.buttontext);
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
     }
 
     return (
         <div>
-            <button onClick={submit}>{buttonText}</button>
+            <Button variant="contained" color="primary" onClick={submit}>
+                {buttonText}
+            </Button>
         </div>
     );
 }

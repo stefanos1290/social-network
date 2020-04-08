@@ -35,7 +35,7 @@ export default function AllFriends({ friends }) {
                                     No friends
                                 </div>
                             )}
-                            {friends.map(friend => (
+                            {friends.map((friend) => (
                                 <div key={friend.id}>
                                     <div className={classes.friendCard}>
                                         <div
@@ -80,7 +80,7 @@ const myStyles = makeStyles(() => ({
     container: {
         width: "50vw",
         height: "100vh",
-        backgroundColor: "black"
+        backgroundColor: "black",
     },
     friendCard: {
         display: "flex",
@@ -88,7 +88,7 @@ const myStyles = makeStyles(() => ({
         alignItems: "center",
         justifyContent: "space-evenly",
         marginBottom: "100px",
-        marginTop: "20px"
+        marginTop: "20px",
     },
     friendCardBackground: {
         position: "absolute",
@@ -97,7 +97,7 @@ const myStyles = makeStyles(() => ({
         background: "linear-gradient(315deg,#e91e65, #5d02ff)",
         zIndex: "-1",
         opacity: "0.5",
-        borderRadius: "20px"
+        borderRadius: "20px",
     },
     friendCardScrollBackground: {
         width: "30.5%",
@@ -107,14 +107,14 @@ const myStyles = makeStyles(() => ({
         marginTop: "61px",
         zIndex: "1",
         transform: "skew(1deg, 1deg)",
-        background: "linear-gradient(315deg,#e91e65, #5d02ff)"
+        background: "linear-gradient(315deg,#e91e65, #5d02ff)",
     },
     title: {
         width: "100%",
         color: "white",
         background: "black",
         position: "relative",
-        textAlign: "center"
+        textAlign: "center",
     },
     friendsScroll: {
         width: "30%",
@@ -124,16 +124,16 @@ const myStyles = makeStyles(() => ({
         right: "10vw",
         marginTop: "63px",
         zIndex: "2",
-        overflowY: "scroll"
+        overflowY: "scroll",
     },
     name: {
         margin: "0",
-        color: "white"
+        color: "white",
     },
     profilePic: {
-        height: "60px"
+        height: "60px",
     },
     noFriendsMessage: {
-        color: "white"
-    }
+        color: "white",
+    },
 }));

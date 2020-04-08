@@ -48,21 +48,31 @@ export default (props) => {
     if (!userData.firstname) {
         return <h1>The user does not exist get over it</h1>;
     }
+    if (userData.imageUrl === null) {
+        userData.imageUrl = "default.png";
+    }
     return (
         <div className="otherUserComponentContainer">
             <div className="otherUserCard">
                 <h1 className="otherUserName">
                     {userData.firstname} {userData.lastname}
                 </h1>
-                <img
-                    className="otherUserProfilePic"
-                    src={`/${userData.imageUrl}`}
-                />
-                {userData.bio === "" ? (
-                    <p className="otherUserNoBioMessage">No Bio added yet</p>
+                {userData.imageUrl.substring(0, 3) === "htt" ? (
+                    <img
+                        className="otherUserProfilePic"
+                        src={userData.imageUrl}
+                    ></img>
                 ) : (
-                    <p className="otherUserBio">{userData.bio}</p>
+                    <img
+                        className="otherUserProfilePic"
+                        src={`/${userData.imageUrl}`}
+                    ></img>
                 )}
+                <div className="otherUserBioContainer">
+                    <p className="otherUserBio">
+                        {userData.bio === "" ? "no bio" : userData.bio}
+                    </p>
+                </div>
                 <Friendshipbutton
                     className="otherUserFriendshipButton"
                     otherId={props.match.params.id}

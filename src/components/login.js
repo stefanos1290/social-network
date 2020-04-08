@@ -77,73 +77,68 @@ class Login extends React.Component {
                     WELCOME
                     <div className="test3"></div>
                 </h1>
-                <div className={classes.container}>
-                    <div
-                        id="backgroundFormLogin"
-                        className={classes.backgroundForm}
-                    ></div>
-                    <img
-                        id="loginLogo"
-                        className={classes.logo}
-                        src="logo.jpg"
-                    ></img>
-                    {this.state.error && (
-                        <div style={{ color: "red", fontSize: "20px" }}>
-                            Something went wrong! Please try again!
-                        </div>
-                    )}
-                    <div
-                        id="formContainerLogin"
-                        className={classes.formContainer}
+                <div
+                    id="backgroundFormLogin"
+                    className={classes.backgroundForm}
+                ></div>
+                <img
+                    id="loginLogo"
+                    className={classes.logo}
+                    src="logo.jpg"
+                ></img>
+                {this.state.error && (
+                    <div style={{ color: "red", fontSize: "20px" }}>
+                        Something went wrong! Please try again!
+                    </div>
+                )}
+                <div id="formContainerLogin" className={classes.formContainer}>
+                    <h1 id="welcomeMediaLogin">
+                        <div className="test2"></div>
+                        WELCOME
+                        <div className="test3"></div>
+                    </h1>
+                    <h1 id="loginTitle" style={{ color: "white" }}>
+                        Login
+                    </h1>
+                    <TextField
+                        onChange={(e) =>
+                            this.setState({ email: e.target.value })
+                        }
+                        value={email}
+                        type="email"
+                        placeholder="Email"
+                        required
+                        id="emailFieldLogin"
+                        InputProps={{ className: classes.input }}
+                    />
+                    <TextField
+                        onChange={(e) =>
+                            this.setState({ password: e.target.value })
+                        }
+                        value={password}
+                        type="password"
+                        placeholder="Password"
+                        required
+                        id="passwordFieldLogin"
+                        InputProps={{ className: classes.input }}
+                    />
+                    <Button
+                        id="loginButton"
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "10px" }}
+                        onClick={() => this.handleLogin()}
                     >
-                        <h1 id="welcomeMediaLogin">
-                            <div className="test2"></div>
-                            WELCOME
-                            <div className="test3"></div>
-                        </h1>
-                        <h1 id="loginTitle" style={{ color: "white" }}>
-                            Login
-                        </h1>
-                        <TextField
-                            onChange={(e) =>
-                                this.setState({ email: e.target.value })
-                            }
-                            value={email}
-                            type="email"
-                            placeholder="Email"
-                            required
-                            id="emailFieldLogin"
-                            InputProps={{ className: classes.input }}
-                        />
-                        <TextField
-                            onChange={(e) =>
-                                this.setState({ password: e.target.value })
-                            }
-                            value={password}
-                            type="password"
-                            placeholder="Password"
-                            required
-                            id="passwordFieldLogin"
-                            InputProps={{ className: classes.input }}
-                        />
-                        <Button
-                            id="loginButton"
-                            variant="contained"
-                            color="primary"
-                            style={{ margin: "10px" }}
-                            onClick={() => this.handleLogin()}
+                        Login
+                    </Button>
+                    <div>
+                        <Link
+                            id="linkToRegister"
+                            className={classes.linkRegister}
+                            to="/"
                         >
-                            Login
-                        </Button>
-                        <div>
-                            <Link
-                                id="linkToRegister"
-                                className={classes.linkRegister}
-                                to="/"
-                            >
-                                REGISTER
-                            </Link>
-                        </div>
+                            REGISTER
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -153,11 +148,11 @@ class Login extends React.Component {
 
 const styles = (theme) => ({
     welcome: {
-        position: "absolute",
         color: "white",
-        zIndex: "1",
-        top: "124px",
-        left: "144px",
+        zIndex: "111",
+        position: "absolute",
+        top: "119px",
+        left: "152px",
     },
     logo: {
         borderRadius: "100%",
@@ -168,32 +163,30 @@ const styles = (theme) => ({
         display: "block",
         overflowX: "hidden",
     },
-    container: {
-        // display: "flex",
-        // flexDirection: "column",
-        // width: "200px",
-        // overflow: "hidden",
-    },
     backgroundForm: {
-        width: "350px",
-        height: "300px",
+        width: "450px",
+        height: "400px",
         backgroundColor: "black",
-        position: "absolute",
-        right: "158px",
-        top: "250px",
-        opacity: "0.7",
         zIndex: "1",
         borderRadius: "20px",
         boxShadow: "1px 1px 15px",
         color: "white",
+        position: "absolute",
+        top: "94px",
+        right: "94px",
+        opacity: ".7",
     },
     formContainer: {
         position: "absolute",
-        right: "249px",
-        top: "280px",
+        top: "94px",
+        right: "94px",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "space-evenly",
+        alignItems: "center",
         zIndex: "1",
+        width: "450px",
+        height: "400px",
     },
     linkRegister: {
         textDecoration: "none",

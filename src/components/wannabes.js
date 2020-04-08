@@ -10,11 +10,11 @@ export default function Wannabes() {
     const dispatch = useDispatch();
     const classes = myStyles();
 
-    const wannabes = useSelector(state => {
+    const wannabes = useSelector((state) => {
         return (
             state.friendsReducer.users &&
             state.friendsReducer.users.filter(
-                wannabe => wannabe.accepted == false
+                (wannabe) => wannabe.accepted == false
             )
         );
     });
@@ -35,7 +35,7 @@ export default function Wannabes() {
                 ></div>
                 <div id="wannabeScroll" className={classes.wannabeScroll}>
                     {wannabes.length > 0 &&
-                        wannabes.map(wannabe => (
+                        wannabes.map((wannabe) => (
                             <div key={wannabe.id}>
                                 <div>
                                     <div className={classes.wannabeCard}>
@@ -89,10 +89,10 @@ const myStyles = makeStyles(() => ({
         position: "absolute",
         left: "0px",
         width: "50%",
-        background: "black"
+        background: "black",
     },
     title: {
-        color: "white"
+        color: "white",
     },
     wannabesScrollBackground: {
         width: "60.5%",
@@ -101,7 +101,7 @@ const myStyles = makeStyles(() => ({
         zIndex: "2",
         position: "absolute",
         marginTop: "88px",
-        transform: "skew(1deg, 1deg)"
+        transform: "skew(1deg, 1deg)",
     },
     wannabeScroll: {
         width: "60%",
@@ -110,7 +110,7 @@ const myStyles = makeStyles(() => ({
         position: "absolute",
         marginTop: "90px",
         overflowY: "scroll",
-        zIndex: "3"
+        zIndex: "3",
     },
     wannabeCard: {
         display: "flex",
@@ -118,7 +118,7 @@ const myStyles = makeStyles(() => ({
         alignItems: "center",
         justifyContent: "space-evenly",
         marginBottom: "100px",
-        marginTop: "20px"
+        marginTop: "20px",
     },
     wannabeCardBackground: {
         position: "absolute",
@@ -127,13 +127,13 @@ const myStyles = makeStyles(() => ({
         background: "linear-gradient(315deg,#ff0057, #e64a19)",
         zIndex: "-1",
         opacity: "0.5",
-        borderRadius: "20px"
+        borderRadius: "20px",
     },
     profilePic: {
-        height: "60px"
+        height: "60px",
     },
     name: {
         margin: "0",
-        color: "white"
-    }
+        color: "white",
+    },
 }));
