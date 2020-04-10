@@ -14,12 +14,12 @@ const io = require("socket.io")(server, { origins: "localhost:8080" });
 const connectedUsers = {};
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, "public");
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, Date.now() + "-" + file.originalname);
-    }
+    },
 });
 
 app.use(express.static("./public"));
@@ -29,11 +29,11 @@ app.use(compression());
 
 const cookieSessionMiddleware = cookieSession({
     secret: `I'm always angry.`,
-    maxAge: 1000 * 60 * 60 * 24 * 90
+    maxAge: 1000 * 60 * 60 * 24 * 90,
 });
 
 app.use(cookieSessionMiddleware);
-io.use(function(socket, next) {
+io.use(function (socket, next) {
     cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
 
@@ -42,7 +42,7 @@ app.use(express.json());
 app.use(express.static("./public"));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.cookie("mytoken", req.csrfToken());
     next();
 });
@@ -51,14 +51,14 @@ if (process.env.NODE_ENV !== "production") {
     app.use(
         "/bundle.js",
         require("http-proxy-middleware")({
-            target: "http://localhost:8081/"
+            target: "http://localhost:8081/",
         })
     );
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
-app.get("/welcome", function(req, res) {
+app.get("/welcome", function (req, res) {
     if (req.session.userId) {
         res.redirect("/");
     } else {
@@ -67,26 +67,26 @@ app.get("/welcome", function(req, res) {
 });
 
 app.get("/users/onlineusers", (req, res) => {
-    const userIds = Object.keys(connectedUsers).map(x => connectedUsers[x]);
-    db.getSelectedUsers(userIds).then(function(d) {
+    const userIds = Object.keys(connectedUsers).map((x) => connectedUsers[x]);
+    db.getSelectedUsers(userIds).then(function (d) {
         res.json(d.rows);
     });
 });
 
-app.get("/userjson/:id", function(req, res) {
+app.get("/userjson/:id", function (req, res) {
     db.getUserData(req.params.id)
         .then(({ rows }) => {
             rows[0].meId = req.session.userId;
             res.json(rows[0]);
         })
-        .catch(err => {
+        .catch((err) => {
             res.json(err);
         });
 });
 
 app.get("/getuserdata", (req, res) => {
     const userId = req.session.userId;
-    db.getUserData(userId).then(function(data) {
+    db.getUserData(userId).then(function (data) {
         const d = data.rows[0];
         // d.meId = req.session.userId;
         res.status(200).send(d);
@@ -111,29 +111,29 @@ app.post("/login", (req, res) => {
     let password = req.body.password;
 
     db.getUserInfo(email)
-        .then(results => {
+        .then((results) => {
             let hashedPassword = results.rows[0].password;
             let userId = results.rows[0].id;
             compare(password, hashedPassword)
-                .then(match => {
+                .then((match) => {
                     if (match) {
                         req.session.userId = userId;
                         res.json({ success: true });
                     }
                 })
-                .catch(error => console.log("catch 1", error));
+                .catch((error) => console.log("catch 1", error));
         })
-        .catch(error => {
+        .catch((error) => {
             console.log("catch 2", error);
             res.json({
-                error: "incorrect password and/or email"
+                error: "incorrect password and/or email",
             });
         });
 });
 var upload = multer({ storage: storage }).single("file");
 
-app.post("/upload", function(req, res) {
-    upload(req, res, function(err) {
+app.post("/upload", function (req, res) {
+    upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err);
         } else if (err) {
@@ -142,10 +142,10 @@ app.post("/upload", function(req, res) {
         const userId = req.session.userId;
         const file = req.file.filename;
         db.uploadImageToUser(file, userId)
-            .then(function() {
+            .then(function () {
                 return res.status(200).send(req.file);
             })
-            .catch(function() {
+            .catch(function () {
                 return res.statusCode(501);
             });
     });
@@ -153,7 +153,7 @@ app.post("/upload", function(req, res) {
 
 app.post("/users", (req, res) => {
     const { value } = req.body;
-    db.getMatchingActors(value).then(function(data) {
+    db.getMatchingActors(value).then(function (data) {
         return res.status(200).json(data.rows);
     });
 });
@@ -163,7 +163,7 @@ app.post("/bio", (req, res) => {
         .then(() => {
             res.json({});
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
             res.json({ err });
         });
@@ -191,25 +191,25 @@ app.get("/friendshipstatus/:id", (req, res) => {
                 }
             }
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
         });
 });
 
-app.post("/friendshipstatus/accept/:id", function(req, res) {
+app.post("/friendshipstatus/accept/:id", function (req, res) {
     db.acceptFriendshipRequest(req.params.id, req.session.userId)
-        .then(response => {
+        .then((response) => {
             res.json({});
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
 });
 
-app.post("/friendshipstatus/cancel/:id", function(req, res) {
+app.post("/friendshipstatus/cancel/:id", function (req, res) {
     db.endFriendshipRequest(req.params.id, req.session.userId)
-        .then(response => {
+        .then((response) => {
             res.json({});
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
 });
 
 app.post("/friendshipstatus/:id", (req, res) => {
@@ -224,45 +224,45 @@ app.post("/friendshipstatus/:id", (req, res) => {
                     .then(() => {
                         res.json({ buttontext: "Cancel Friend" });
                     })
-                    .catch(err => console.log(err));
+                    .catch((err) => console.log(err));
             } else if (rows[0].accepted) {
                 db.endFriendshipRequest(rows[0].id)
                     .then(() => {
                         res.json({ buttontext: " Make a Request" });
                     })
-                    .catch(err => console.log(err));
+                    .catch((err) => console.log(err));
             } else {
                 if (rows[0].sender_id == senderId) {
                     db.endFriendshipRequest(rows[0].id)
                         .then(() => {
                             res.json({ buttontext: " Make a Request" });
                         })
-                        .catch(err => console.log(err));
+                        .catch((err) => console.log(err));
                 } else {
                     db.acceptFriendshipRequest(rows[0].id)
                         .then(() => {
                             res.json({ buttontext: "Remove Friend" });
                         })
-                        .catch(err => console.log(err));
+                        .catch((err) => console.log(err));
                 }
             }
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err);
         });
 });
 
-app.get("/get-user-wannabes", function(req, res) {
+app.get("/get-user-wannabes", function (req, res) {
     db.friendWannabes(req.session.userId)
         .then(({ rows }) => {
             res.json({
-                data: rows
+                data: rows,
             });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
 });
 
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
     if (!req.session.userId) {
         res.redirect("/welcome");
     } else {
@@ -270,11 +270,11 @@ app.get("*", function(req, res) {
     }
 });
 
-server.listen(8080, function() {
+server.listen(8080, function () {
     console.log("I'm listening.");
 });
 
-io.on("connection", function(socket) {
+io.on("connection", function (socket) {
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
@@ -283,14 +283,14 @@ io.on("connection", function(socket) {
     connectedUsers[socket.id] = userId;
     onlineUsers = Object.keys(connectedUsers).length;
     io.sockets.emit("connectedUsers", onlineUsers);
-    db.getLastTenMessages().then(function(data) {
-        // db.getUserData(userId).then(function(userData) {
+    db.getLastTenMessages().then(function (data) {
+        // db.getUserData(userId).then(function (userData) {
         //     const userInfo = {
         //         id: data.rows[0].id,
         //         firstname: data.rows[0].firstname,
         //         lastname: data.rows[0].lastname,
         //         image: data.rows[0].image,
-        //         bio: data.rows[0].bio
+        //         bio: data.rows[0].bio,
         //     };
         //     console.log("userInfo", userInfo);
         //     io.sockets.emit("dataOnlineUser", userInfo);
@@ -300,7 +300,7 @@ io.on("connection", function(socket) {
         io.sockets.emit("chatMessages", reversedData);
     });
 
-    socket.on("disconnect", function() {
+    socket.on("disconnect", function () {
         delete connectedUsers[socket.id];
         setTimeout(() => {
             io.sockets.emit(
@@ -310,16 +310,16 @@ io.on("connection", function(socket) {
         }, 200);
     });
 
-    socket.on("chatMessage", msg => {
-        db.insertNewChatMessage(msg, userId).then(function(id) {
-            db.getUserData(userId).then(function(data) {
+    socket.on("chatMessage", (msg) => {
+        db.insertNewChatMessage(msg, userId).then(function (id) {
+            db.getUserData(userId).then(function (data) {
                 const newMessageObj = {
                     id: id.rows[0].id,
                     msg: msg,
                     image: data.rows[0].image,
                     firstname: data.rows[0].firstname,
                     lastname: data.rows[0].lastname,
-                    created_at: data.rows[0].created_at
+                    created_at: data.rows[0].created_at,
                 };
                 io.sockets.emit("chatMessage", newMessageObj);
             });
